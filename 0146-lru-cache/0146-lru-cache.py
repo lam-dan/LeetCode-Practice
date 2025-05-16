@@ -44,8 +44,12 @@ class LRUCache:
     # otherwise do nothing
     # Put the value in the dictionary
     def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            node = self.cache[key]
+            node.value = value
+            self.delete(node)
+            self.insert_after_head(node)
         # If not in the map
-        
         if key not in self.cache:
             # Remove the least recently used
             # Multiple Conditions:
@@ -59,28 +63,5 @@ class LRUCache:
             self.cache[key] = node
             self.insert_after_head(node)
 
-        node = self.cache[key]
-        node.value = value
-        self.delete(node)
-        self.insert_after_head(node)
+
         
-    
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-queue = LRUCache(5)
-print(queue)
-
