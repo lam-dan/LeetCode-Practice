@@ -25,7 +25,7 @@ class Solution:
             for richer_person in adj_list[i]:
                 # Want to see all of the richer people and compare if they are more quiet
                 candidate = dfs(richer_person)
-
+                # We take the candidate and quietest so far to look up their quiet factor from the quiet list to compare
                 if quiet[candidate] < quiet[quietest_so_far]:
                     quietest_so_far = candidate
                 
