@@ -1,44 +1,24 @@
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
-        # Relative position in space based on index
-        # absolute value = size
-        # sign represents direction (+, right), (-, left)
-        # two asteroids meet, smaller will explodes
-        # if the same size, both explode
-        # else asteroids never meet
-
-        # (5, right) size 5
-        # (10, right) size 10
-
-        # (-5, left) size 5 (deleted)
-
-        # Stack for processing
-        # compare each value before putting it into the stack
         stack = []
 
-        for current in asteroids:
-            # Incoming left-moving asteroid
-            # A lot of conditions for the stack
-            # Stack has to have something
-            # asteroids in stack have to be positive
-            # current incoming asteroid must be negative
-            while stack and stack[-1] > 0 and current < 0:
-                if stack[-1] < abs(current):
-                    stack.pop() # top asteroid in stack explodes
-                    continue # keep checking current asteroid against next top asteroid
-                # if the size of asteroids are the same between top and incoming
-                elif stack[-1] == abs(current):
-                    stack.pop() # top asteroid in stack explodes
-                break # current asteroid also explodes
+        for i in range(len(asteroids)):
+            asteroid = asteroids[i]
+            # positive vs negative asteroid
+            # stack can't be empty
+            while stack and stack[-1] > 0 and asteroid < 0:
+                # 3 states
+                # 1) two asteroids meet, smaller one explodes
+                if stack[-1] < abs(asteroid):
+                    stack.pop()
+                    continue # Continue to next element
+                elif stack[-1] > abs(asteroid):
+                    break # Continue to next asteroid
+                else:
+                #2) If both are the same size, both will explode
+                    stack.pop()
+                    break
+            #3) If both are moving in the same direction
             else:
-                # Either stack is empty or no collision -> safe to add
-                stack.append(current)
+                stack.append(asteroid)
         return stack
-
-                
-                
-
-            
-
-
-
