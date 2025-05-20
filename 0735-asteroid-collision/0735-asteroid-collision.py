@@ -7,6 +7,7 @@ class Solution:
             # positive vs negative asteroid
             # stack can't be empty
             while stack and stack[-1] > 0 and asteroid < 0:
+                # We only take absolute value when needing to compare the size
                 # 3 states
                 # 1) two asteroids meet, smaller one explodes
                 if stack[-1] < abs(asteroid):
