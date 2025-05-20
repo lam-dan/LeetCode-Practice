@@ -18,6 +18,10 @@ class Solution:
 
         for current in asteroids:
             # Incoming left-moving asteroid
+            # A lot of conditions for the stack
+            # Stack has to have something
+            # asteroids in stack have to be positive
+            # current incoming asteroid must be negative
             while stack and stack[-1] > 0 and current < 0:
                 if stack[-1] < abs(current):
                     stack.pop() # top asteroid in stack explodes
