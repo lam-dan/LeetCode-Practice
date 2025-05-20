@@ -1,12 +1,17 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        # nums = [10,9,2,5,3,7]
-        dp = [1] * len(nums)
-        # dp = [1,1,1,1,1,1]
-        for i in range(1, len(nums)):
-            for j in range(0, i):
-                if nums[i] > nums[j]:
-                    dp[i] = max(dp[i], dp[j] + 1) # dp = [1,1,1,2,2,3]
-        return max(dp) # max(dp) = 3
+        n = len(nums)
+        dp = [1] * n # Every element is at least an LIS of 1
 
-        # Time Complexity = O(n^2)
+        # Iterate through each number
+        for i in range(n):
+            # Iterate through all the values up to n
+            for j in range(i):
+                # check current value against previous values up to i
+                # if current number is greater than previous values up to i
+                if nums[i] > nums[j]:
+                    # Update the current DP table by taking the max
+                    # between current dp value and the previous value plus 1 too see if we can extend it
+                    dp[i] = max(dp[i], dp[j] + 1)
+        return max(dp, default=0)
+        
