@@ -11,7 +11,6 @@ class Solution:
                 # if current number is greater than previous values up to i
                 if nums[i] > nums[j]:
                     # Update the current DP table by taking the max
-                    # between current dp value and the previous value plus 1 too see if we can extend it
                     dp[i] = max(dp[i], dp[j] + 1)
-        return max(dp, default=0)
+        return max(dp)
         
