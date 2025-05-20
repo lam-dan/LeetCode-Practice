@@ -22,7 +22,7 @@ class Solution:
         queue = deque([])
         print(queue)
         # Add into the queue the nodes that don't have ndegrees
-        for node in adj_list:
+        for node in range(numCourses):
             if ndegree[node] == 0:
                 queue.append(node)
         
