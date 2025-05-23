@@ -39,7 +39,6 @@ class LFUCache:
         self.min_freq = 0
 
     def update_freq_list(self, node):
-        del self.cache[node.key]
         # Grab doubly linked list of nodes at that frequency
         dll_at_freq = self.freq[node.count] 
         dll_at_freq.delete(node) # remove the node from that dll at the frequency
@@ -47,16 +46,9 @@ class LFUCache:
         if (node.count == self.min_freq and dll_at_freq.size == 0):
             self.min_freq += 1
         
-        next_higher_freq_list = DLL()
-        next_freq_count = node.count + 1
-
-        if next_freq_count in self.freq:
-            next_higher_freq_list = self.freq[next_freq_count]
-
         node.count += 1
-        next_higher_freq_list.insert_after_head(node)
-        self.freq[node.count] = next_higher_freq_list
-        self.cache[node.key] = node
+        self.freq[node.count].insert_after_head(node)
+
 
     def get(self, key: int) -> int:
         if key in self.cache:
@@ -75,18 +67,17 @@ class LFUCache:
         else:
             if self.size >= self.capacity:
                 dll_at_min_freq = self.freq[self.min_freq]
-                # Remove the node before the dummy tail's keys from the cache
-                del self.cache[dll_at_min_freq.tail.prev.key]
-                # Remove the node before the dummy tail from the freq
-                dll_at_min_freq.delete(dll_at_min_freq.tail.prev)
+                node_to_evict = dll_at_min_freq.tail.prev
+                dll_at_min_freq.delete(node_to_evict)
+                del self.cache[node_to_evict.key]
                 self.size -= 1
 
-            self.size += 1 # Increment size
-            self.min_freq = 1 # Reset min frequency back to 1
-            
             new_node = Node(key, value)
-            self.freq[self.min_freq].insert_after_head(new_node)
+            self.freq[1].insert_after_head(new_node)
             self.cache[key] = new_node
+            self.min_freq = 1
+            self.size += 1
+
 
 
 
