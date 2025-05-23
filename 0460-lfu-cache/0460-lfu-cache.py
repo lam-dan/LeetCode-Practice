@@ -83,15 +83,10 @@ class LFUCache:
 
             self.size += 1 # Increment size
             self.min_freq = 1 # Reset min frequency back to 1
-
-            new_dll_at_freq = DLL()
-            if self.min_freq in self.freq:
-                new_dll_at_freq = self.freq[self.min_freq]
             
             new_node = Node(key, value)
-            new_dll_at_freq.insert_after_head(new_node)
+            self.freq[self.min_freq].insert_after_head(new_node)
             self.cache[key] = new_node
-            self.freq[self.min_freq] = new_dll_at_freq
 
 
 
