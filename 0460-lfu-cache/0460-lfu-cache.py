@@ -68,9 +68,6 @@ class LFUCache:
             return -1
 
     def put(self, key: int, value: int) -> None:
-        # if self.capacity == 0:
-        #     return
-        
         if key in self.cache:
             node = self.cache[key]
             node.value = value
