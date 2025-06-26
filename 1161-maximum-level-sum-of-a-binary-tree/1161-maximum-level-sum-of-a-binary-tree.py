@@ -29,7 +29,7 @@ class Solution:
                     queue.append(node.right)
 
             # Post Processing
-            if level_total >max_level:
+            if level_total > max_level:
                 max_level = level_total
                 ans = level
 
