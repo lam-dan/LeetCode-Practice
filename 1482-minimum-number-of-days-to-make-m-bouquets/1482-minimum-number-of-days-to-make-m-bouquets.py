@@ -22,19 +22,31 @@ class Solution:
             for day in bloomDay:
                 if day <= mid:
                     count_of_flowers += 1  # Flower has bloomed by 'day_limit'
-                    if count_of_flowers == k:
+                    if count_of_flowers == k: # Found k consecutive bloomed flowers → Form 1 bouquet
                         total_bouquets += 1  # One bouquet formed
-                        count_of_flowers = 0    # Reset consecutive count
+                        count_of_flowers = 0    # Reset streak for next bouquet
                 else:
-                    count_of_flowers = 0  # Streak broken, need k consecutive again
-
+                    # Flower hasn't bloomed yet → Streak broken, reset consecutive count
+                    count_of_flowers = 0
             return total_bouquets >= m  # Return True if enough bouquets can be formed
 
         # Impossible to form m bouquets if not enough flowers
         if m * k > len(bloomDay):
             return -1
 
-        # Binary search boundaries: earliest bloom day to latest bloom day
+        # Doesn't require sorting for binary search
+        # Binary Search on Answer Space:
+        # You search for the minimum or maximum feasible value
+        # You define a logical range, independent of array ordering
+        # Here, array order doesn't affect when flowers bloom relative to a given day_limit
+        # The only thing that matters:
+        # For a mid day, which flowers have bloomed (day <= mid)
+        # Count consecutive valid flowers
+        # Order can stay as provided
+
+        # Binary search boundaries:
+        # Minimum possible day is when the first flower blooms (min of bloomDay)
+        # Maximum possible day is when the last flower blooms (max of bloomDay)
         left = min(bloomDay)
         right = max(bloomDay)
 
@@ -43,11 +55,12 @@ class Solution:
             mid = (left + right) // 2
 
             if can_make_bouquets(mid):
-                right = mid - 1  # Possible to make bouquets, try earlier days
+                # Possible to make bouquets by 'mid' day → Try earlier days to minimize
+                right = mid - 1
             else:
-                left = mid + 1   # Not enough bouquets, need more days
-
-        # 'left' points to the smallest day where it's possible to form required bouquets
+                # Not enough bouquets by 'mid' day → Need more days
+                left = mid + 1
+        # After loop, 'left' points to the smallest valid day where enough bouquets can be formed
         return left
  
 
