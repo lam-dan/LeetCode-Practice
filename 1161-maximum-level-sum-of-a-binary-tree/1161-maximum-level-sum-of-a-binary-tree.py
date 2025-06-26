@@ -11,12 +11,12 @@ class Solution:
 
         queue = deque([root])
         # Handle Starting Level Value
-        self.max_level = float('-inf')
-        self.ans = 0
-        self.level = 0
+        max_level = float('-inf')
+        ans = 0
+        level = 0
 
         while queue:
-            self.level += 1
+            level += 1
             level_total = 0
 
             # Iterate over all nodes at each level
@@ -30,11 +30,11 @@ class Solution:
                     queue.append(node.right)
 
             # Post Processing
-            if level_total > self.max_level:
-                self.max_level = level_total
-                self.ans = self.level
+            if level_total >max_level:
+                max_level = level_total
+                ans = level
 
-        return self.ans
+        return ans
             
 
 
