@@ -1,37 +1,36 @@
 from collections import deque
 
 class Solution:
-    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
-        rows = len(maze)
-        cols = len(maze[0])
+    def hasPath(self, maze, start, destination):
+        rows, cols = len(maze), len(maze[0])
         
-        queue = deque([start])
-        seen = set()
-        # col = up and down
-        # row - up and down
-        direction = [(0,1), (0,-1), (1,0), (-1,0)]
+        queue = deque([start])  # BFS queue holds stop positions to explore
+        seen = set()  # Tracks positions we've already processed to prevent cycles
+        
+        # Possible directions to roll: right, left, down, up
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
         while queue:
-            curr_row, curr_col = queue.popleft()
+            row, col = queue.popleft()  # Get next stop position to explore
 
-            # Base Case: Correct Destination Return
-            if curr_row == destination[0] and curr_col == destination[1]:
+            # Base Case: If we reach the destination, return True
+            if [row, col] == destination:
                 return True
 
-            # Iterate through all four directions
-            for r, c in direction:
-                next_row, next_col = curr_row, curr_col
+            # Explore all four directions from current stop position
+            for dr, dc in directions:
+                next_row, next_col = row, col  # Reset to current stop position
 
-                # While we are within boundaries of the
-                while next_row >= 0 and next_row < rows and next_col >= 0 and next_col < cols and maze[next_row][next_col] == 0:
-                    next_row += r
-                    next_col += c
-                
-                next_row -= r
-                next_col -= c
+                # Roll continuously in the chosen direction until hitting a wall or boundary
+                while 0 <= next_row + dr < rows and 0 <= next_col + dc < cols and maze[next_row + dr][next_col + dc] == 0:
+                    next_row += dr
+                    next_col += dc
 
+                # The ball stops just before the wall or boundary
+                # Only queue the stop position if it hasn't been visited yet
                 if (next_row, next_col) not in seen:
-                    seen.add((next_row, next_col))
-                    queue.append((next_row, next_col))
-        
+                    seen.add((next_row, next_col))  # Mark position as visited
+                    queue.append((next_row, next_col))  # Add stop position to BFS queue
+
+        # If queue is exhausted and destination wasn't reached, no valid path exists
         return False
