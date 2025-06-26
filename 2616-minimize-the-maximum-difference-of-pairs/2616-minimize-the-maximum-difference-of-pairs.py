@@ -37,7 +37,8 @@ class Solution:
         n = len(nums)
 
         left = 0
-        right = n - 1
+        right = nums[-1] - nums[0] # The last value in the array subtracted by the first value 
+        # this is the maximum difference search space
 
         while left < right:
             mid = (left + right) // 2
