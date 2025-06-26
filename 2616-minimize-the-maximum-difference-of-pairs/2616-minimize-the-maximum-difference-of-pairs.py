@@ -32,7 +32,6 @@ class Solution:
                 i += 1
             return pairs >= p # p is the number of pairs allowed for this problem
 
-
         nums.sort()
         n = len(nums)
 
@@ -40,11 +39,11 @@ class Solution:
         right = nums[-1] - nums[0] # The last value in the array subtracted by the first value 
         # this is the maximum difference search space
 
-        while left < right:
+        while left <= right:
             mid = (left + right) // 2
 
             if count_valid_pairs(mid):
-                right = mid
+                right = mid - 1
             else:
                 left = mid + 1
         return left
