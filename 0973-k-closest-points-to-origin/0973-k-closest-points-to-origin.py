@@ -12,12 +12,15 @@ class Solution:
             
             # Compute negated squared distance (to avoid sqrt, squared distance suffices for comparison)
             dist = -x**2 - y**2
+
             
             # If this point is closer than the farthest point currently in heap
             if dist > heap[0][0]:
                 # Replace the farthest point with this one using heappushpop
                 # Keeps heap size constant at k
-                heapq.heappushpop(heap, (dist, x, y))
+                # heapq.heappushpop(heap, (dist, x, y))
+                heapq.heappush(heap, (dist, x, y))
+                heapq.heappop(heap)
 
         # Step 3: Extract the k closest points from the heap
         # Since heap stores (neg_distance, x, y), extract x and y only
