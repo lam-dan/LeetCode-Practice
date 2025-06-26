@@ -16,16 +16,16 @@ class Solution:
         MOD = 10 ** 9 + 7
         stack = []   # Monotonic increasing stack to store indices
         total = 0    # Sum of minimums for all subarrays
-        n = len(arr)
 
         # Iterate through the array + 1 extra iteration to flush the stack
-        for i in range(n + 1):
+        for i in range(len(arr) + 1):
             
             # Current element is arr[i] if within bounds; otherwise 0 to trigger final stack processing
-            curr = arr[i] if i < n else 0
+            curr = arr[i] if i < len(arr) else 0
 
             # Maintain monotonic increasing stack
-            # Pop elements that are greater than or equal to current element
+
+            # Is the previous element in the monotic stack greater than or equal to the current element
             while stack and arr[stack[-1]] >= curr:
                 
                 mid = stack.pop()  # Index of the element to process as minimum
@@ -39,6 +39,7 @@ class Solution:
 
                 # Contribution of arr[mid] as minimum in those subarrays
                 total += arr[mid] * count
+                
 
             # Push current index onto the stack
             stack.append(i)
