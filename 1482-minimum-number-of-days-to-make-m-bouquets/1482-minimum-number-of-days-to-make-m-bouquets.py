@@ -11,13 +11,16 @@ class Solution:
         # Minimum Time to Complete Trips
         # Cutting Ribbons, and others.
 
+        # m = Number of bouquets you must form
+        # k = Number of consecutive flowers required to make one bouquet
+
         # Helper function: Checks if it's possible to make at least m bouquets by 'day_limit'
-        def can_make_bouquets(day_limit):
+        def can_make_bouquets(mid):
             total_bouquets = 0      # Total bouquets formed so far
             count_of_flowers = 0       # Current count of consecutive bloomed flowers
 
             for day in bloomDay:
-                if day <= day_limit:
+                if day <= mid:
                     count_of_flowers += 1  # Flower has bloomed by 'day_limit'
                     if count_of_flowers == k:
                         total_bouquets += 1  # One bouquet formed
