@@ -8,7 +8,6 @@ from collections import deque
 
 class Solution:
     def maxLevelSum(self, root: Optional[TreeNode]) -> int:
-
         queue = deque([root])
         # Handle Starting Level Value
         max_level = float('-inf')
