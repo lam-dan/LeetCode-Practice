@@ -1,6 +1,6 @@
 class Solution:
     def addOperators(self, num: str, target: int) -> List[str]:
-
+        result = []
         def dfs(i: int = 0, prefix: str = '', value: int = 0, prev: int = 0):
             # Base Case
             if i == len(num) and value == target:
@@ -19,8 +19,6 @@ class Solution:
                     dfs(j, prefix + '+' + string, value + number, number)
                     dfs(j, prefix + '-' + string, value - number, -number)
                     dfs(j, prefix + '*' + string, value - prev + prev * number, prev * number)
-        result = []
-
         dfs()
         return result
 
