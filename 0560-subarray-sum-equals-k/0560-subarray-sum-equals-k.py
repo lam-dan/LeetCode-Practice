@@ -1,6 +1,6 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        # Two Sum (Hash Map) + Prefix Sums
+        # Two Sum (Hash Map) + Prefix Sums (List)
         count = 0
         total = 0
 
