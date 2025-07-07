@@ -1,13 +1,15 @@
-from collections import defaultdict
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        dic = defaultdict(list)
+
+        # Dictionary grouping key based on anagram values
+        # {[0101010101010101)]: ['n','a','t'],['t','a','n'] }
+
+        anagram_dic = defaultdict(list)
         for word in strs:
-            # [0 0 0 0 0 0 0 0....]
             char_counter = [0] * 26
             for char in word:
-                char_counter[ord('a') - ord(char)] += 1
-            dic[tuple(char_counter)].append(word)
-        return list(dic.values())
+                key = ord(char) - ord('a')
+                char_counter[key] += 1
+            anagram_dic[tuple(char_counter)].append(word)
+        return list(anagram_dic.values())
 
-        
