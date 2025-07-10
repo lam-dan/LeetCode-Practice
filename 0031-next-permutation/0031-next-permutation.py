@@ -44,8 +44,6 @@ class Solution:
                 nums[i] = nums[idx]
                 nums[idx] = tmp
                 break
-
-        # print(nums)
         
         # The replacement must be in place and use only constant extra memory. - Per requirements
         nums[idx + 1:] = reversed(nums[idx + 1:]) # modifies
