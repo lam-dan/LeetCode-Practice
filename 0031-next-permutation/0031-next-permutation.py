@@ -32,11 +32,8 @@ class Solution:
             if nums[i] < nums[i + 1]: # Find the Dip in the graph
                 idx = i
                 break
-
         if idx == -1:
             return nums.reverse()
-
-        # print(idx)
         # Swapping process
         for i in range(len(nums) - 1, idx, -1):
             if nums[i] > nums[idx]: # If the current number is greater than the index, swap them
@@ -44,29 +41,5 @@ class Solution:
                 nums[i] = nums[idx]
                 nums[idx] = tmp
                 break
-        
         # The replacement must be in place and use only constant extra memory. - Per requirements
-        nums[idx + 1:] = reversed(nums[idx + 1:]) # modifies
-
-
-
-        # i = len(nums) - 1
-        # while i > 0 and nums[i-1] >= nums[i]:
-        #     i -= 1
-        
-        # if i == 0:
-        #     nums.reverse()
-        #     return
-        
-        # j = len(nums) - 1
-        # while j >= i and nums[j] <= nums[i-1]:
-        #     j -= 1
-        
-        # nums[i-1], nums[j] = nums[j], nums[i-1]
-
-        # nums[i:] = reversed(nums[i:])
-
-        
-
-            
-
+        nums[idx + 1:] = reversed(nums[idx + 1:]) # modifies in place
