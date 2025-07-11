@@ -10,6 +10,8 @@ class Solution:
 
         result = []
 
+        print(access_history)
+
         for name, time in access_history.items():
             time.sort()
             left = 0
@@ -19,5 +21,6 @@ class Solution:
                 access_count = i - left + 1
                 if access_count >= 3:
                     result.append(name)
+                    break
         return sorted(result)
                 
