@@ -1,57 +1,48 @@
 class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
-        rows = len(mat)
-        cols = len(mat[0])
+        # Handle the empty matrix case
+        if not mat or not mat[0]:
+            return []
+
+        N = len(mat)
+        M = len(mat[0])
+
+        row = 0
+        column = 0
+        direction = 1 # 1 means moving up-right, 0 means moving down-left
         result = []
-        # Shared Indicies of All Diagonal are equal
-        # [1,2,3]
-        # [4,5,6]
-        # [7,8,9]
 
-        # 2, 4 are on the same diagonal, and they share the index sum of 1. 
-        # - 2 is matrix[0][1] and 4 is in matrix[1][0]. 
+        # Continue until we have viisted all elements
+        while row < N and column < M:
+            result.append(mat[row][column])
 
-        # 3,5,7 are on the same diagonal, and they share the sum of 2. 
-        # - 3 is matrix[0][2], 5 is matrix[1][1], and 7 is matrix [2][0].
-
-        # SO, if you can loop through the matrix, store each element by the 
-        # sum of its indices in a dictionary, you have a collection of all 
-        # elements on shared diagonals.
-        # {0: [1], 1: [2, 4], 2: [3, 5, 7], 3: [6, 8], 4: [9]}
-
-        # The last part is easy, build your answer (a list) by elements on diagonals. 
-        # To capture the 'zig zag' or 'snake' phenomena of this problem, simply 
-        # reverse ever other diagonal level. So check if the level is divisible by 2.
-        diagonals = {}
-
-        for i in range(rows):
-            for j in range(cols):
-                if i + j not in diagonals:
-                    diagonals[i + j] = [mat[i][j]]
+            if direction == 1: # Moving up-right
+                if column == M - 1: # Hit up the right boundary
+                    # Move down to the next row, change direction
+                    row += 1
+                    direction = 0
+                elif row == 0: # Hit the top boundary
+                    # Move right to the next column, change direction
+                    column += 1
+                    direction = 0
                 else:
-                    diagonals[i + j].append(mat[i][j])
-
-        result = []
-        # {0: [1], 1: [2, 4], 2: [3, 5, 7], 3: [6, 8], 4: [9]}
-        # result = [1,2,4,7,5,3,6,8,9]
-        # As you can see above, r + c indexes 0, 2, 4 are apppended
-        # into the array in reverse order [3,5,7] in dictionary
-        # result 
-        for i in range(len(diagonals)):
-            if i % 2 == 0: # if index of the row is even we append backwards
-                for j in range(len(diagonals[i]) - 1, -1, -1):
-                    result.append(diagonals[i][j])
-            else: # if index of the row is odd, we append forwards
-                for j in range(len(diagonals[i])): 
-                    result.append(diagonals[i][j])
+                    # Move up and to the right
+                    row -= 1
+                    column += 1
+            else: # direction == 0, moving down-left
+                if row == N - 1: # Hit the bottom boundary
+                # Move down to the next column, change direction
+                    column += 1
+                    direction = 1
+                elif column == 0: # Hit the left boundary
+                    # Move down to the next row, change direction
+                    row += 1
+                    direction = 1
+                else:
+                    # Move down and to the left
+                    row += 1
+                    column -= 1
         return result
 
-        # Time Complexity is O(N * M)
-        # Space Complexity is O(N)
-            
+                
 
-            
-        
-        
-
-        
