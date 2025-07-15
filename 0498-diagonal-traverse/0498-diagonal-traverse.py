@@ -7,8 +7,10 @@ class Solution:
         # [1,2,3]
         # [4,5,6]
         # [7,8,9]
+
         # 2, 4 are on the same diagonal, and they share the index sum of 1. 
         # - 2 is matrix[0][1] and 4 is in matrix[1][0]. 
+
         # 3,5,7 are on the same diagonal, and they share the sum of 2. 
         # - 3 is matrix[0][2], 5 is matrix[1][1], and 7 is matrix [2][0].
 
@@ -21,6 +23,7 @@ class Solution:
         # To capture the 'zig zag' or 'snake' phenomena of this problem, simply 
         # reverse ever other diagonal level. So check if the level is divisible by 2.
         diagonals = {}
+
         for i in range(rows):
             for j in range(cols):
                 if i + j not in diagonals:
@@ -28,7 +31,6 @@ class Solution:
                 else:
                     diagonals[i + j].append(mat[i][j])
 
-        print(diagonals)
         result = []
         # {0: [1], 1: [2, 4], 2: [3, 5, 7], 3: [6, 8], 4: [9]}
         # result = [1,2,4,7,5,3,6,8,9]
@@ -44,6 +46,8 @@ class Solution:
                     result.append(diagonals[i][j])
         return result
 
+        # Time Complexity is O(N * M)
+        # Space Complexity is O(N)
             
 
             
