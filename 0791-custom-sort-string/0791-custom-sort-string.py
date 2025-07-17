@@ -3,6 +3,9 @@ class Solution:
         # We need to reorder the string s so that the characters in order 
         # appear first (and in the given sequence), while any characters in 
         # s not present in order can appear anywhere after.
+
+        # 1) maintain the ordering in order and account for duplicates when appending
+        # 2) any extra characters in s append afterwards
         new_order = Counter(s)
         result = []
 
