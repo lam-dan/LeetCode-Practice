@@ -3,7 +3,6 @@ class Solution:
         # We need to reorder the string s so that the characters in order 
         # appear first (and in the given sequence), while any characters in 
         # s not present in order can appear anywhere after.
-
         new_order = Counter(s)
         result = []
 
