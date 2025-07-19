@@ -10,35 +10,45 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return None  # If the original list is empty, return None immediately
+
         tmp = head
-        dic = {}  # Dictionary to map original nodes to their corresponding copied nodes
-
-        # First pass: copy each node by value only, no next/random yet
+        # First pass: duplicate each node and insert it right after the original node
         while tmp:
-            dic[tmp] = Node(tmp.val)  # Create a new node with the same value as the original
-            tmp = tmp.next  # Move to the next node in the original list
+            copyNode = Node(tmp.val)  # Create copied node
+            copyNode.next = tmp.next  # Link new node to next
+            tmp.next = copyNode       # Insert copy right after the original node
+            tmp = copyNode.next       # Move to the next original node
 
-        tmp = head  # Reset tmp to start from head again
-        # Second pass: assign next and random pointers for each copied node
+        tmp = head
+        # Second pass: assign random pointers to the copied nodes
         while tmp:
-            copyNode = dic[tmp]  # The copied node corresponding to the current original node
+            copyNode = tmp.next
+            if tmp.random:
+                # The copy's random should point to the copy of tmp.random
+                copyNode.random = tmp.random.next
+            tmp = tmp.next.next  # Move to the next original node
 
-            # Set 'next' pointer of the copied node:
-            # If tmp.next is None, we assign None. Otherwise, we map it to the copied node.
-            copyNode.next = dic[tmp.next] if tmp.next is not None else None
+        # Third pass: separate the interleaved list into original and copied lists
+        dummy = Node(-1)
+        res = dummy
+        tmp = head
 
-            # Set 'random' pointer of the copied node:
-            # If tmp.random is None, assign None. Otherwise, map it to the copied node.
-            copyNode.random = dic[tmp.random] if tmp.random is not None else None
+        while tmp:
+            copyNode = tmp.next
+            res.next = copyNode      # Append copied node to result list
+            tmp.next = copyNode.next # Restore the original list
+            tmp = tmp.next           # Move to next original node
+            res = res.next           # Move in copied list
 
-            tmp = tmp.next  # Move to the next node in the original list
+        return dummy.next
 
-        # WHY WE RETURN dic[head]:
-        # tmp is now None because the while loop finished traversing the list.
-        # If we returned dic[tmp], it would be equivalent to dic[None], causing a KeyError.
-        # head still points to the first node of the original list.
-        # dic[head] gives us the corresponding copied head node, which is the correct return value.
-        return dic[head]
+
+        
+
+
+            
+
+
 
         
 
