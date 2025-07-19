@@ -10,18 +10,17 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return None  # If the original list is empty, return None immediately
-
         tmp = head
         dic = {}  # Dictionary to map original nodes to their corresponding copied nodes
 
         # First pass: copy each node by value only, no next/random yet
-        while tmp is not None:
+        while tmp:
             dic[tmp] = Node(tmp.val)  # Create a new node with the same value as the original
             tmp = tmp.next  # Move to the next node in the original list
 
         tmp = head  # Reset tmp to start from head again
         # Second pass: assign next and random pointers for each copied node
-        while tmp is not None:
+        while tmp:
             copyNode = dic[tmp]  # The copied node corresponding to the current original node
 
             # Set 'next' pointer of the copied node:
