@@ -42,6 +42,9 @@ class Solution:
 
         return dummy.next
 
+        # O(n) time complexity where n is the number of nodes in the linked list
+        # O(1) space complexity since we don't create extra space  
+
 
         
 
