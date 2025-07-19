@@ -8,7 +8,10 @@ class Solution:
         window_counter = Counter()  # Frequency of characters in the current window
         need = len(t_counter)       # Total number of unique characters needed
 
-        # Preprocess: filter s to only the necessary characters
+        # Preprocess: filter s to only the necessary characters present in t
+        # This optimizes the sliding window by skipping irrelevant characters.
+        # Without this, we'd iterate over every character in s.
+        # filtered_s stores (original index, character) of characters in s that are also in t
         filtered_s = []
         for i in range(len(s)):
             if s[i] in t_counter:
