@@ -25,16 +25,16 @@ class Solution:
         # After the first pass, the list looks like:
         # original1 -> copy1 -> original2 -> copy2 -> ...
 
-        tmp = head
+        curr = head
         # === Second pass: assign random pointers for the copy nodes ===
-        while tmp:
-            copyNode = tmp.next  # This is the copy node following tmp
-            if tmp.random:
+        while curr:
+            tmp = curr.next  # This is the copy node following tmp
+            if curr.random:
                 # The copy's random should point to tmp.random's copy
                 # tmp.random.next is the copy of tmp.random because of the interleaving
-                copyNode.random = tmp.random.next
+                tmp.random = curr.random.next
             # Move to the next original node (skip the copy)
-            tmp = tmp.next.next
+            curr = curr.next.next
 
         # === Third pass: separate the interleaved list into original and copied lists ===
         dummy = Node(-1)  # Dummy head for the new copied list
