@@ -9,37 +9,52 @@ class Node:
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
-            return None  # If the original list is empty, return None immediately
+            return None  # Edge case: If the original list is empty, return None
+
+        curr = head
+        # === First pass: clone each node and insert it right after the original node ===
+        while curr:
+            # Create a new node (copy) with the same value
+            tmp = Node(curr.val)
+            # Insert the copy node right after the original node
+            tmp.next = curr.next
+            curr.next = tmp
+            # Move tmp to the next original node (skip the copy we just inserted)
+            curr = tmp.next
+
+        # After the first pass, the list looks like:
+        # original1 -> copy1 -> original2 -> copy2 -> ...
 
         tmp = head
-        # First pass: duplicate each node and insert it right after the original node
+        # === Second pass: assign random pointers for the copy nodes ===
         while tmp:
-            copyNode = Node(tmp.val)  # Create copied node
-            copyNode.next = tmp.next  # Link new node to next
-            tmp.next = copyNode       # Insert copy right after the original node
-            tmp = copyNode.next       # Move to the next original node
-
-        tmp = head
-        # Second pass: assign random pointers to the copied nodes
-        while tmp:
-            copyNode = tmp.next
+            copyNode = tmp.next  # This is the copy node following tmp
             if tmp.random:
-                # The copy's random should point to the copy of tmp.random
+                # The copy's random should point to tmp.random's copy
+                # tmp.random.next is the copy of tmp.random because of the interleaving
                 copyNode.random = tmp.random.next
-            tmp = tmp.next.next  # Move to the next original node
+            # Move to the next original node (skip the copy)
+            tmp = tmp.next.next
 
-        # Third pass: separate the interleaved list into original and copied lists
-        dummy = Node(-1)
-        res = dummy
-        tmp = head
+        # === Third pass: separate the interleaved list into original and copied lists ===
+        dummy = Node(-1)  # Dummy head for the new copied list
+        res = dummy       # Pointer to build the new list
+        tmp = head        # Reset tmp to head of the original list
 
         while tmp:
-            copyNode = tmp.next
-            res.next = copyNode      # Append copied node to result list
-            tmp.next = copyNode.next # Restore the original list
-            tmp = tmp.next           # Move to next original node
-            res = res.next           # Move in copied list
+            copyNode = tmp.next  # The copied node to extract
+            # Append the copied node to the result list
+            res.next = copyNode
 
+            # Restore the original list by skipping the copied node
+            tmp.next = copyNode.next
+
+            # Move res forward in the copied list
+            res = res.next
+            # Move tmp forward in the original list
+            tmp = tmp.next
+
+        # dummy.next is the head of the deep copied list
         return dummy.next
 
         # O(n) time complexity where n is the number of nodes in the linked list
