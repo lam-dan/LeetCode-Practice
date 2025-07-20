@@ -15,12 +15,12 @@ class Solution:
         # === First pass: clone each node and insert it right after the original node ===
         while curr:
             # Create a new node (copy) with the same value
-            tmp = Node(curr.val)
+            copyNode = Node(curr.val)
             # Insert the copy node right after the original node
-            tmp.next = curr.next
-            curr.next = tmp
+            copyNode.next = curr.next
+            curr.next = copyNode
             # Move tmp to the next original node (skip the copy we just inserted)
-            curr = tmp.next
+            curr = copyNode.next
 
         # After the first pass, the list looks like:
         # original1 -> copy1 -> original2 -> copy2 -> ...
@@ -39,20 +39,20 @@ class Solution:
         # === Third pass: separate the interleaved list into original and copied lists ===
         dummy = Node(-1)  # Dummy head for the new copied list
         res = dummy       # Pointer to build the new list
-        tmp = head        # Reset tmp to head of the original list
+        curr = head        # Reset tmp to head of the original list
 
-        while tmp:
-            copyNode = tmp.next  # The copied node to extract
+        while curr:
+            tmp = curr.next  # The copied node to extract
             # Append the copied node to the result list
-            res.next = copyNode
+            res.next = tmp
 
             # Restore the original list by skipping the copied node
-            tmp.next = copyNode.next
+            curr.next = tmp.next
 
             # Move res forward in the copied list
             res = res.next
             # Move tmp forward in the original list
-            tmp = tmp.next
+            curr = tmp.next
 
         # dummy.next is the head of the deep copied list
         return dummy.next
