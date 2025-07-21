@@ -1,13 +1,30 @@
 
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        stack = []
+        open_bracket_count = 0
+        min_count = 0
+
         for i in range(len(s)):
-            if len(stack) > 0 and stack[-1] == "(" and s[i] == ")":
-                stack.pop()
-                continue
-            stack.append(s[i])
-        return len(stack)
+
+            if s[i] == "(":
+                open_bracket_count += 1
+            elif s[i] == ")":
+                if open_bracket_count > 0:
+                    open_bracket_count -= 1
+                else:
+                    min_count += 1
+
+            
+        return open_bracket_count + min_count
+        
+        
+    
+
+
+            
+
+
+
 
         # Time Complexity: O(N)
         # Space Coplexity: O(N)
