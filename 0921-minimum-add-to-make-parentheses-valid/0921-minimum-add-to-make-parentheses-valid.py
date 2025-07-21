@@ -1,30 +1,23 @@
 
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        open_bracket_count = 0
-        min_count = 0
-
-        for i in range(len(s)):
-
-            if s[i] == "(":
-                open_bracket_count += 1
-            elif s[i] == ")":
-                if open_bracket_count > 0:
-                    open_bracket_count -= 1
+        # Initialize balance variables for unmatched parentheses
+        left_balance = 0  # Tracks unmatched '('
+        right_balance = 0  # Tracks unmatched ')'
+        
+        # Traverse through the string
+        for char in s:
+            if char == '(':
+                left_balance += 1  # Add an unmatched '('
+            elif char == ')':
+                if left_balance > 0:
+                    # If there is an unmatched '(', pair it with this ')'
+                    left_balance -= 1
                 else:
-                    min_count += 1
-
-            
-        return open_bracket_count + min_count
+                    # If no unmatched '(', this ')' is unmatched
+                    right_balance += 1
         
-        
-    
-
-
-            
-
-
-
-
+        # The total moves needed is the sum of unmatched '(' and ')'
+        return left_balance + right_balance
         # Time Complexity: O(N)
-        # Space Coplexity: O(N)
+        # Space Coplexity: O(1)
