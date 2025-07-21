@@ -8,3 +8,6 @@ class Solution:
                 continue
             stack.append(s[i])
         return len(stack)
+
+        # Time Complexity: O(N)
+        # Space Coplexity: O(1)
