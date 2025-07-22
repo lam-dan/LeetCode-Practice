@@ -102,7 +102,7 @@ class Solution:
                             0 <= new_c < cols and
                             grid[new_r][new_c] == 1
                         ):
-                            neighbor_number = (new_r * cols) + new_c # Flatten the neighbor to 1D index
+                            neighbor_number = (new_r * rows) + new_c # Flatten the neighbor to 1D index
                             # Find the root of the neighbor's island
                             root = ds.find(neighbor_number)
                             #Add the root to the set to avoid duplicates
