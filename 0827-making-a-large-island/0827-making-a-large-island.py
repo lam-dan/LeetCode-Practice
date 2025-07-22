@@ -71,7 +71,7 @@ class Solution:
                             grid[new_r][new_c] == 1
                         ):
                             # Flatten neighbor's coordinates to 1D index
-                            neighbor_number = new_r * cols + new_c
+                            neighbor_number = new_r * rows + new_c
                             # Union the current land cell with the neighboring land cell
                             ds.union(node_number, neighbor_number)
 
