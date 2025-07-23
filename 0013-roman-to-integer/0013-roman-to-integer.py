@@ -18,23 +18,14 @@ class Solution:
 
         # 5 => 4 => 104 => 94 => 1094 - 100 = 994 => 1000 = 1994
         total = 0
-        for i in range(len(s)- 1, -1, -1):
+        for i in range(len(s)-1, -1, -1):
             if s[i] in roman_to_integer:
-                if s[i] == "I":
-                    if i < len(s) - 1 and (s[i + 1] == "V" or s[i + 1] == "X"):
-                        total -= roman_to_integer[s[i]]
-                    else:
-                        total += roman_to_integer[s[i]]
-                elif s[i] == "X":
-                    if i < len(s) - 1 and (s[i + 1] == "L" or s[i + 1] == "C"):
-                        total -= roman_to_integer[s[i]]
-                    else:
-                        total += roman_to_integer[s[i]]
-                elif s[i] == "C":
-                    if i < len(s) - 1 and (s[i + 1] == "D" or s[i + 1] == "M"):
-                        total -= roman_to_integer[s[i]]
-                    else:
-                        total += roman_to_integer[s[i]]
+                if s[i] == "I" and i < len(s) - 1 and (s[i + 1] == "V" or s[i + 1] == "X"):
+                    total -= roman_to_integer[s[i]]
+                elif s[i] == "X" and i < len(s) - 1 and (s[i + 1] == "L" or s[i + 1] == "C"):
+                    total -= roman_to_integer[s[i]]
+                elif s[i] == "C" and i < len(s) - 1 and (s[i + 1] == "D" or s[i + 1] == "M"):
+                    total -= roman_to_integer[s[i]]
                 else:
                     total += roman_to_integer[s[i]]
         return total
