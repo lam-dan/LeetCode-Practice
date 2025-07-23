@@ -41,9 +41,7 @@ class Solution:
                     # Otherwise, move up one row and right one column
                     r -= 1
                     c += 1
-            else:
-                # If moving in the down-left direction
-
+            else: # If moving in the down-left direction
                 # If we've hit the bottom boundary (last row)
                 if r == rows - 1:
                     # Move right to the next column
