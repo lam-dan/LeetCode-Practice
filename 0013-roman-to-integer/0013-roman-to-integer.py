@@ -30,5 +30,15 @@ class Solution:
                     total += roman_to_integer[s[i]]
         return total
 
+        # Time Complexity:
+        # Theoretically O(n), where n is the length of the string.
+        # But since valid Roman numerals only go up to 15 characters (for numbers ≤ 3999),
+        # this function runs in constant time in practice: O(1).
+
+        # Space Complexity:
+        # O(1) — We use a fixed-size dictionary and a constant number of variables.
+
+
+
 
             
