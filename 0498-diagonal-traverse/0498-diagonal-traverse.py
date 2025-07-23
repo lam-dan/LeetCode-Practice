@@ -25,42 +25,40 @@ class Solution:
 
             # If moving in the up-right direction
             if direction == 1:
-                # If we've hit the right boundary (last column)
+                # Moving up-right (↗)
                 if c == cols - 1:
-                    # Move down to the next row
+                    # We've hit the right boundary (e.g., cells 3, 6, 9)
+                    # Can't move further right — move down to the next row
                     r += 1
-                    # Change direction to down-left
-                    direction = 0
-                # If we've hit the top boundary (first row)
+                    direction = 0  # Change direction to down-left (↙)
                 elif r == 0:
-                    # Move right to the next column
+                    # We've hit the top boundary (e.g., cells 1, 2, 3)
+                    # Can't move further up — move right to the next column
                     c += 1
-                    # Change direction to down-left
-                    direction = 0
+                    direction = 0  # Change direction to down-left (↙)
                 else:
-                    # Otherwise, move up one row and right one column
+                    # Normal up-right move: go one row up, one column right
                     r -= 1
                     c += 1
-            else: # If moving in the down-left direction
-                # If we've hit the bottom boundary (last row)
+            else:
+                # Moving down-left (↙)
                 if r == rows - 1:
-                    # Move right to the next column
+                    # We've hit the bottom boundary (e.g., cells 7, 8, 9)
+                    # Can't move further down — move right to the next column
                     c += 1
-                    # Change direction to up-right
-                    direction = 1
-                # If we've hit the left boundary (first column)
+                    direction = 1  # Change direction to up-right (↗)
                 elif c == 0:
-                    # Move down to the next row
+                    # We've hit the left boundary (e.g., cells 1, 4, 7)
+                    # Can't move further left — move down to the next row
                     r += 1
-                    # Change direction to up-right
-                    direction = 1
+                    direction = 1  # Change direction to up-right (↗)
                 else:
-                    # Otherwise, move down one row and left one column
+                    # Normal down-left move: go one row down, one column left
                     r += 1
                     c -= 1
-
-        # After collecting all elements, return the result list
+        # Return the final result list with diagonal order traversal
         return result
+
 
         # Time Complexity: O(m * n)
         # - We visit each of the m * n elements exactly once.
