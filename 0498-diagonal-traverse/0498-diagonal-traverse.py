@@ -14,7 +14,7 @@ class Solution:
 
         # Continue until we have viisted all elements
         while row < N and column < M:
-            result.append(mat[row][column])
+            result.append(mat[row][column]) # Starting at top left cell
 
             if direction == 1: # Moving up-right
                 if column == M - 1: # Hit up the right boundary
