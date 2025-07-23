@@ -64,5 +64,10 @@ class Solution:
         # After collecting all elements, return the result list
         return result
 
+        # Time Complexity: O(m * n)
+        # - We visit each of the m * n elements exactly once.
+        # Space Complexity: O(1) additional space (excluding the output list)
+        # - We use only a fixed number of variables. The output list takes O(m * n) space.
+
                 
 
