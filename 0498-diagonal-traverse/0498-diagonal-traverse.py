@@ -1,47 +1,67 @@
 class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
-        # Handle the empty matrix case
+        # Check for empty matrix or empty row; return empty list if true
         if not mat or not mat[0]:
             return []
 
+        # Get the number of rows in the matrix
         rows = len(mat)
+        # Get the number of columns in the matrix
         cols = len(mat[0])
 
+        # Initialize the current row index
         r = 0
+        # Initialize the current column index
         c = 0
-        direction = 1 # 1 means moving up-right, 0 means moving down-left
+        # Initialize direction: 1 means moving up-right, 0 means moving down-left
+        direction = 1
+        # Initialize result list to store elements in diagonal order
         result = []
 
-        # Continue until we have viisted all elements
-        while r < rows and c < cols:
-            result.append(mat[r][c]) # Starting at top left cell
+        # Loop until we've visited all elements in the matrix
+        while len(result) < rows * cols:
+            # Append the current matrix element to result; we start at top-left cell (0, 0)
+            result.append(mat[r][c])
 
-            if direction == 1: # Moving up-right
-                if c == cols - 1: # Hit up the right boundary
-                    # Move down to the next row, change direction
+            # If moving in the up-right direction
+            if direction == 1:
+                # If we've hit the right boundary (last column)
+                if c == cols - 1:
+                    # Move down to the next row
                     r += 1
+                    # Change direction to down-left
                     direction = 0
-                elif r == 0: # Hit the top boundary
-                    # Move right to the next column, change direction
+                # If we've hit the top boundary (first row)
+                elif r == 0:
+                    # Move right to the next column
                     c += 1
+                    # Change direction to down-left
                     direction = 0
                 else:
-                    # Move up and to the right
+                    # Otherwise, move up one row and right one column
                     r -= 1
                     c += 1
-            else: # direction == 0, moving down-left
-                if r == rows - 1: # Hit the bottom boundary
-                # Move down to the next column, change direction
+            else:
+                # If moving in the down-left direction
+
+                # If we've hit the bottom boundary (last row)
+                if r == rows - 1:
+                    # Move right to the next column
                     c += 1
+                    # Change direction to up-right
                     direction = 1
-                elif c == 0: # Hit the left boundary
-                    # Move down to the next row, change direction
+                # If we've hit the left boundary (first column)
+                elif c == 0:
+                    # Move down to the next row
                     r += 1
+                    # Change direction to up-right
                     direction = 1
                 else:
-                    # Move down and to the left
+                    # Otherwise, move down one row and left one column
                     r += 1
                     c -= 1
+
+        # After collecting all elements, return the result list
         return result
 
                 
