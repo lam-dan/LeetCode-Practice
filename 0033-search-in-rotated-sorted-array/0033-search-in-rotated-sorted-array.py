@@ -9,12 +9,11 @@ class Solution:
                 return mid
             # Left Sorted
             elif nums[left] <= nums[mid]:
-                if nums[left] <= target and target <= nums[mid]:
+                if nums[left] <= target <= nums[mid]:
                     right = mid - 1
                 else:   
                     left = mid + 1
-            # Right Sorted
-            else:
+            else: # Right Sorted
                 if nums[mid] <= target and target <= nums[right]:
                     left = mid + 1
                 else:
