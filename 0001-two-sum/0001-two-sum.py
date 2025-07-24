@@ -9,5 +9,5 @@ class Solution:
             if complement not in dic:
                 dic[num] = i
             else:
-                return [i, dic[complement]]
+                return [dic[complement], i]
         return []
