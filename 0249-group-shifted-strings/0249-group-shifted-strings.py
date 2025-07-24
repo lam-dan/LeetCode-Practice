@@ -4,7 +4,6 @@ class Solution:
 
         for word in strings:
             key = []  # List to hold relative character shifts
-            
             # Example: for s = "abc", ord('a') = 97
             # word[0] = 'a'
             # 'a' → (97 - 97) % 26 = 0
@@ -12,7 +11,8 @@ class Solution:
             # 'c' → (99 - 97) % 26 = 2
             # Key = (0, 1, 2)
             for char in word:
-                shift = (ord(char) - ord(word[0])) % 26  # Shifting each character of the word to the first character of the word
+                shift = (ord(word[0]) - ord(char)) % 26 
+                # shift = (ord(char) - ord(word[0])) % 26  # Shifting each character of the word to the first character of the word
                 # We use modulo 26 to handle wrap-around in the alphabet.
                 # For example: "az" → 'z' - 'a' = 25 → (25) % 26 = 25
                 # But "ba" → 'a' - 'b' = -1 → (-1 % 26) = 25 (in Python, negative % yields positive equivalent)
@@ -29,3 +29,5 @@ class Solution:
         # ["a", "z"]                 → key = (0,)
         return list(result.values())  # Return grouped string lists
 
+        # Time Complexity is O(N * K) where N is the number of words in the input strings, and K is the average length of each string
+        # Space Complexity is O(N * K) where N is the number of words in the input strings and K is the average length of each string.
