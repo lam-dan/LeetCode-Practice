@@ -7,9 +7,9 @@ class Solution:
         # Iterate through each log entry
         for i in range(len(logs)):
             # Split log into function ID, type ('start' or 'end'), and timestamp
-            fn_id, typ, timestamp = logs[i].split(":")
+            fn_id, typ, time_stamp = logs[i].split(":")
             fn_id = int(fn_id)             # Convert function ID to integer
-            current_time = int(timestamp)  # Convert timestamp to integer
+            current_time = int(time_stamp)  # Convert timestamp to integer
 
             if typ == "start":
                 if stack:
