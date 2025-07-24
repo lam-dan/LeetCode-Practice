@@ -19,7 +19,7 @@ class Solution:
         result = []
 
         # Loop until we've visited all elements in the matrix
-        while len(result) < rows * cols:
+        while r < rows and c < cols:
             # Append the current matrix element to result; we start at top-left cell (0, 0)
             result.append(mat[r][c])
 
