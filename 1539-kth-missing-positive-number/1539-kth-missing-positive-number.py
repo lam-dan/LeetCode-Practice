@@ -10,20 +10,41 @@ class Solution:
         #  0 1 2 3 4
         # [2,3,4,7,11]
         # [1,1,1,3,6]
-        left = 0 
+        # Step 1: Calculate the number of missing positive integers
+        # before each element in arr.
+        # For example, if arr[i] = 7 and i = 3 (4th element),
+        # then 6 positive numbers should be there by index 3 (1-based),
+        # so 7 - (i + 1) = 7 - 4 = 3 numbers are missing.
+        missing_numbers = [0] * len(arr)
+        for i in range(len(arr)):
+            missing_numbers[i] = arr[i] - i - 1
+
+        # Binary search to find the smallest index such that
+        # missing_numbers[index] >= k
+        left = 0
         right = len(arr) - 1
 
         while left <= right:
-
             mid = (left + right) // 2
-            missing = arr[mid] - (mid + 1)
-
-            if missing < k:
+            if missing_numbers[mid] < k:
+                # Not enough missing numbers before this index — look to the right
                 left = mid + 1
             else:
+                # Too many missing numbers — look to the left
                 right = mid - 1
-                
-        return left + k
+
+        # After the loop ends:
+        # - 'left' is the first index in arr such that missing_numbers[left] >= k
+        # - 'right' is the index just before it (i.e., last one where missing_numbers < k)
+
+        # Case 1: If left == 0, then the k-th missing number occurs before the first element
+        if left == 0:
+            return k  # Just return the k-th number directly (since nothing is missing yet)
+
+        # Case 2: General case
+        # missing up to arr[right] is missing_numbers[right]
+        # We need (k - missing_numbers[right]) more steps beyond arr[right]
+        return arr[right] + (k - missing_numbers[right])
 
 
 
