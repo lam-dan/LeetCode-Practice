@@ -8,10 +8,12 @@ class Solution:
 
         # Loop until we've processed both strings completely AND used up any carry
         while i >= 0 or j >= 0 or carry:
-            # Get digit from num1 or 0 if i is out of range
-            digit1 = ord(num1[i]) - ord('0') if i >= 0 else 0
-            # Get digit from num2 or 0 if j is out of range
-            digit2 = ord(num2[j]) - ord('0') if j >= 0 else 0
+            # We use ord(char) - ord('0') to convert a digit character like '5' into the number 5. 
+            # Digit characters are stored consecutively in Unicode starting from '0' (which is 48), 
+            # so subtracting ord('0') normalizes the value to the actual digit. This avoids using int(), 
+            # which is often restricted in these problems.
+            digit1 = ord(num1[i]) - ord('0') if i >= 0 else 0 # Get digit from num1 or 0 if i is out of range
+            digit2 = ord(num2[j]) - ord('0') if j >= 0 else 0 # Get digit from num2 or 0 if j is out of range
 
             # Add the two digits and the carry from the previous step
             total = digit1 + digit2 + carry
@@ -44,4 +46,3 @@ class Solution:
 
         # Space Complexity is O(max(n,m))
         # The result stores one character for each digit of the sum
-
