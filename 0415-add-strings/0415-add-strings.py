@@ -21,7 +21,7 @@ class Solution:
             ptr1 -= 1
             ptr2 -= 1
 
-        return "".join(result[::-1])
+        return "".join(reversed(result))
 
 
 
