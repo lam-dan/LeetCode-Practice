@@ -30,7 +30,7 @@ class Solution:
                 right = mid - 1
         
         #  arr[right] + k - (arr[right] - right - 1)
-        return k + right + 1
+        return left + k
 
 
 
