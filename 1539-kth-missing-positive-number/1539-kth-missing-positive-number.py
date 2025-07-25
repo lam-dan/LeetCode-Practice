@@ -36,4 +36,22 @@ class Solution:
         # when moving along the full number line. Therefore, we need to add those left valid numbers 
         # to our target k to get the actual number in the number line: k + left.
 
+        # 1st round:
+        # 1, 2, [3], 4, 5, 6, 7, 8, 9, 10, 11
+        # 2, 3, [4], 7, 11
+        # ---->m ( 1st round m = 2)
+        # 4 - 3 = 1. means there are 1 missing number existed here;
+
+        # 2nd round:
+        # 1, 2, 3, [4], 5, 6, 7, 8, 9, 10, 11
+        # 2, 3, 4, [7], 11
+        # ------->m ( 2nd round m = 3)
+        # 7 -4 = 3. means there are 3 missing number existed here;
+
+        # 3rd round:
+        # 1, 2, 3, 4, [5], 6, 7, 8, 9, 10, 11
+        # 2, 3, 4, 7, [11]
+        # ---------->m ( 3rd round m = 4)
+        # 11 -5 = 6. means there are 6 missing number existed here; containing what we need, which is 5th.
+        # 4 (7's correspoding number) + 5th missing= anwser 9
 
