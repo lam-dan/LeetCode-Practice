@@ -2,7 +2,14 @@ class Solution:
     def findKthPositive(self, arr: List[int], k: int) -> int:
         left, right = 0, len(arr) - 1
 
-        # Binary search for the first index where missing numbers before arr[i] >= k
+        # This approach works because we're using binary search to locate the position (left) in the original 
+        # sorted array of non-missing numbers where the k-th missing number would conceptually "fit."
+        # Think of the full number line from 1 upward. Some numbers are present in arr, and some are missing. 
+        # We're essentially trying to find the point in arr where the count of missing numbers catches up to k.
+        # Binary search helps us find that "gap" between two existing (non-missing) numbers in arr where the k-th 
+        # missing number belongs.
+        # The index left tells us how many valid (non-missing) values we've passed in arr before reaching 
+        # the point where the k-th missing number would fall in the number line.
         while left <= right:
             mid = (left + right) // 2
 
@@ -18,9 +25,6 @@ class Solution:
             else:
                 right = mid - 1  # Too many missing numbers, go left
 
-        # After binary search:
-        # - 'left' is the smallest index where missing numbers ≥ k
-        # - 'k + left' gives the actual k-th missing number
         return k + left
 
         # If we had an imaginary array that only contained the missing numbers, 
