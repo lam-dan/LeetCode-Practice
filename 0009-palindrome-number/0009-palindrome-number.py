@@ -1,6 +1,11 @@
 class Solution:
     def isPalindrome(self, x: int) -> bool:
+        # Intuition:
+        # The core idea is that a palindrome number reads the same forward 
+        # and backward — so we only need to compare the first half and the 
+        # reversed second half of the number.
         # Negative numbers are not palindrome
+
         # Numbers endings in 0 can't be palindrome unless the number itself (e.g., 10 != 01)
         if x < 0 or (x % 10 == 0 and x != 0): # e.g. x = -121 or x = 10 → False
             return False
