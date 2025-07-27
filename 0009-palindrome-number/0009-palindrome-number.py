@@ -7,7 +7,6 @@ class Solution:
         Time Complexity: O(log₁₀(n)) — Processes half the digits.
         Space Complexity: O(1) — Uses constant extra space.
         """
-
         # Step 1: Handle special edge cases
         # Negative numbers are not palindromes due to '-' sign
         # Numbers ending in 0 (e.g., 10, 100) can't be palindromes unless x == 0
@@ -22,8 +21,7 @@ class Solution:
         while x > reversed_half:
             digit = x % 10                           # Get the last digit
             reversed_half = reversed_half * 10 + digit  # Append to reversed_half
-            x //= 10                                  # Drop the last digit from x
-
+            x = x // 10                                  # Drop the last digit from x
             # Example: x = 1221 (even length)
             # Iteration 1: digit = 1, reversed_half = 1, x = 122
             # Iteration 2: digit = 2, reversed_half = 12, x = 12 → stop loop
@@ -36,5 +34,4 @@ class Solution:
         # Step 4: Compare front half and reversed back half
         # Case 1: Even number of digits → x == reversed_half
         # Case 2: Odd number of digits → x == reversed_half // 10 (middle digit doesn't matter)
-
         return x == reversed_half or x == reversed_half // 10
