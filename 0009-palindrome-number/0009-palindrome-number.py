@@ -1,71 +1,40 @@
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        # Intuition:
-        # The core idea is that a palindrome number reads the same forward 
-        # and backward — so we only need to compare the first half and the 
-        # reversed second half of the number.
-        # Number: 1221
-        # First half: 12
-        # Second half reversed: 12 → Match
+        """
+        Check if an integer is a palindrome without converting to a string.
+        This optimized solution only reverses half the number.
 
-        # Number: 12321
-        # First half: 12
-        # Second half reversed: 123 → Drop the middle digit (3) → 12 → Match
+        Time Complexity: O(log₁₀(n)) — Processes half the digits.
+        Space Complexity: O(1) — Uses constant extra space.
+        """
 
-        # Negative numbers are not palindrome
-        # Numbers endings in 0 can't be palindrome unless the number itself (e.g., 10 != 01)
-        if x < 0 or (x % 10 == 0 and x != 0): # e.g. x = -121 or x = 10 → False
+        # Step 1: Handle special edge cases
+        # Negative numbers are not palindromes due to '-' sign
+        # Numbers ending in 0 (e.g., 10, 100) can't be palindromes unless x == 0
+        if x < 0 or (x % 10 == 0 and x != 0):
             return False
 
-        # Store the original number for comparison later
-        original = x  # original = 121 (odd) or 1221 (even)
+        # Step 2: Initialize the reversed second half
+        reversed_half = 0
 
-        # Initialize the reversed_num to build the reversed version of x
-        reversed_num = 0  # reversed_num = 0
+        # Step 3: Reverse digits until x <= reversed_half
+        # This loop will stop once we've reversed half of the digits
+        while x > reversed_half:
+            digit = x % 10                           # Get the last digit
+            reversed_half = reversed_half * 10 + digit  # Append to reversed_half
+            x //= 10                                  # Drop the last digit from x
 
-        # Reverse the digits of x one by one
-        while x > 0:
-            digit = x % 10  # Extract the last digit
+            # Example: x = 1221 (even length)
+            # Iteration 1: digit = 1, reversed_half = 1, x = 122
+            # Iteration 2: digit = 2, reversed_half = 12, x = 12 → stop loop
 
-            # Odd example (x = 121):
-            # 1st iteration: digit = 121 % 10 = 1
-            # 2nd iteration: digit = 12 % 10 = 2
-            # 3rd iteration: digit = 1 % 10 = 1
+            # Example: x = 12321 (odd length)
+            # Iteration 1: digit = 1, reversed_half = 1, x = 1232
+            # Iteration 2: digit = 2, reversed_half = 12, x = 123
+            # Iteration 3: digit = 3, reversed_half = 123, x = 12 → stop loop
 
-            # Even example (x = 1221):
-            # 1st iteration: digit = 1221 % 10 = 1
-            # 2nd iteration: digit = 122 % 10 = 2
-            # 3rd iteration: digit = 12 % 10 = 2
-            # 4th iteration: digit = 1 % 10 = 1
+        # Step 4: Compare front half and reversed back half
+        # Case 1: Even number of digits → x == reversed_half
+        # Case 2: Odd number of digits → x == reversed_half // 10 (middle digit doesn't matter)
 
-            reversed_num = reversed_num * 10 + digit  # Append digit to the reversed number
-
-            # Odd (121):
-            # 1st: reversed_num = 0 * 10 + 1 = 1
-            # 2nd: reversed_num = 1 * 10 + 2 = 12
-            # 3rd: reversed_num = 12 * 10 + 1 = 121
-
-            # Even (1221):
-            # 1st: reversed_num = 0 * 10 + 1 = 1
-            # 2nd: reversed_num = 1 * 10 + 2 = 12
-            # 3rd: reversed_num = 12 * 10 + 2 = 122
-            # 4th: reversed_num = 122 * 10 + 1 = 1221
-
-            x = x // 10  # Remove the last digit from x
-
-            # Odd (121):
-            # 1st: x = 121 // 10 = 12
-            # 2nd: x = 12 // 10 = 1
-            # 3rd: x = 1 // 10 = 0
-
-            # Even (1221):
-            # 1st: x = 1221 // 10 = 122
-            # 2nd: x = 122 // 10 = 12
-            # 3rd: x = 12 // 10 = 1
-            # 4th: x = 1 // 10 = 0
-
-        return reversed_num == original  
-        # Odd: 121 == 121 → True
-        # Even: 1221 == 1221 → True
-
-
+        return x == reversed_half or x == reversed_half // 10
