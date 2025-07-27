@@ -21,12 +21,13 @@ class Solution:
         # Instead of comparing digits at the ends, we reconstruct the right half in reverse
         while left_half > reversed_right_half:
             # Step 1) Build Right Side Going from Right to Left
-            # Equivalent to moving "right pointer" left
+            # We build right side first because it starts as 0
             last_digit = left_half % 10 # Remove last digit from original number x                    
             reversed_right_half = reversed_right_half * 10 + last_digit  # Build the reversed right side
 
             # Step 2) Build Left Side Going from Left to Right
             # Move "left pointer" to the right
+            # We build left half later after since it starts with the original number 
             left_half = left_half // 10 # Remove last digit from original number x
 
             # Two-pointer analogy: we move inward from both sides
