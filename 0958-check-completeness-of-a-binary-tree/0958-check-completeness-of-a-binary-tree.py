@@ -15,16 +15,19 @@ class Solution:
         seen_null = False
 
         while queue:
-            left_flag = False
-            right_flag = False
-
             for _ in range(len(queue)):
                 node = queue.popleft()
-                if node:
-                    if seen_null:
-                        return False
 
+                if node.left:
+                    if seen_null:
+                        return False # Already seen a missing child, so not complete tree
                     queue.append(node.left)
+                else:
+                    seen_null = True
+                
+                if node.right:
+                    if seen_null:
+                        return False # Already seen a missing child, so not complete tree
                     queue.append(node.right)
                 else:
                     seen_null = True
