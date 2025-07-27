@@ -3,8 +3,14 @@ class Solution:
         """
         Checks whether an integer is a palindrome by reversing only the second half.
         Uses a numeric equivalent of the two-pointer technique.
-        
-        Time Complexity: O(log₁₀(n)) — processes half of the digits
+
+        Time Complexity:
+            - O(log₁₀(x)) if x is the numeric value because the number of times you can 
+            divide x by 10 until it reaches 0 is ≈ log₁₀(x)
+            
+            More intuitive:
+            - O(n) if n is the number of digits in x (we process roughly n/2 digits)
+
         Space Complexity: O(1) — uses constant extra space
         """
         # Step 1: Handle special cases
@@ -59,3 +65,5 @@ class Solution:
             left_half == reversed_right_half or
             left_half == reversed_right_half // 10
         )
+
+    
