@@ -25,7 +25,7 @@ class Solution:
         while left_half > reversed_right_half:
             last_digit = left_half % 10                     # Equivalent to moving "right pointer" left
             reversed_right_half = reversed_right_half * 10 + last_digit  # Build the reversed right side
-            left_half //= 10                                # Move "left pointer" right by removing a digit
+            left_half = left_half // 10                                # Move "left pointer" right by removing a digit
 
             # Two-pointer analogy: we move inward from both sides
             # left_half: digits from the front → shrinking
