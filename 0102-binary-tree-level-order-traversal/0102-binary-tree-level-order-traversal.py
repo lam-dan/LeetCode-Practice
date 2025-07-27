@@ -16,9 +16,8 @@ class Solution:
         result = []
 
         while queue:
-            current_length = len(queue)
             level = []
-            for _ in range(current_length):
+            for _ in range(len(queue)):
                 node = queue.popleft()
                 level.append(node.val)
                 if node.left:
