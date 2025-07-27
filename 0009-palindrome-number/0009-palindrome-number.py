@@ -1,37 +1,49 @@
 class Solution:
     def isPalindrome(self, x: int) -> bool:
         """
-        Check if an integer is a palindrome without converting to a string.
-        This optimized solution only reverses half the number.
-
-        Time Complexity: O(log₁₀(n)) — Processes half the digits.
-        Space Complexity: O(1) — Uses constant extra space.
+        Checks whether an integer is a palindrome without converting it to a string.
+        This efficient version reverses only half the digits and compares.
+        
+        Time Complexity: O(log₁₀(n)) — processes half of the digits
+        Space Complexity: O(1) — uses constant extra space
         """
-        # Step 1: Handle special edge cases
-        # Negative numbers are not palindromes due to '-' sign
-        # Numbers ending in 0 (e.g., 10, 100) can't be palindromes unless x == 0
+
+        # Step 1: Handle special cases
+        # Negative numbers are never palindromes (e.g., -121)
+        # Numbers ending in 0 (e.g., 10, 100) can't be palindromes unless the number is 0
         if x < 0 or (x % 10 == 0 and x != 0):
             return False
 
-        # Step 2: Initialize the reversed second half
-        reversed_half = 0
+        # Step 2: Prepare two halves
+        # left_half will shrink from the front
+        # reversed_right_half will build the reversed back half
+        left_half = x
+        reversed_right_half = 0
 
-        # Step 3: Reverse digits until x <= reversed_half
-        # This loop will stop once we've reversed half of the digits
-        while x > reversed_half:
-            digit = x % 10                           # Get the last digit
-            reversed_half = reversed_half * 10 + digit  # Append to reversed_half
-            x = x // 10                                  # Drop the last digit from x
-            # Example: x = 1221 (even length)
-            # Iteration 1: digit = 1, reversed_half = 1, x = 122
-            # Iteration 2: digit = 2, reversed_half = 12, x = 12 → stop loop
+        # Step 3: Build reversed_right_half until it catches up with or surpasses left_half
+        while left_half > reversed_right_half:
+            last_digit = left_half % 10                     # Get the last digit of the front half
+            reversed_right_half = reversed_right_half * 10 + last_digit  # Append to the reversed back half
+            left_half //= 10                                # Remove last digit from left_half
 
-            # Example: x = 12321 (odd length)
-            # Iteration 1: digit = 1, reversed_half = 1, x = 1232
-            # Iteration 2: digit = 2, reversed_half = 12, x = 123
-            # Iteration 3: digit = 3, reversed_half = 123, x = 12 → stop loop
+            # === Example: Even-length x = 1221 ===
+            # Iteration 1: last_digit = 1
+            #   left_half = 122, reversed_right_half = 1
+            # Iteration 2: last_digit = 2
+            #   left_half = 12, reversed_right_half = 12 → stop
 
-        # Step 4: Compare front half and reversed back half
-        # Case 1: Even number of digits → x == reversed_half
-        # Case 2: Odd number of digits → x == reversed_half // 10 (middle digit doesn't matter)
-        return x == reversed_half or x == reversed_half // 10
+            # === Example: Odd-length x = 12321 ===
+            # Iteration 1: last_digit = 1
+            #   left_half = 1232, reversed_right_half = 1
+            # Iteration 2: last_digit = 2
+            #   left_half = 123, reversed_right_half = 12
+            # Iteration 3: last_digit = 3
+            #   left_half = 12, reversed_right_half = 123 → stop
+
+        # Step 4: Compare halves
+        # Even number of digits: left_half == reversed_right_half
+        # Odd number of digits: middle digit in reversed_right_half doesn't matter → remove it using // 10
+        return (
+            left_half == reversed_right_half or
+            left_half == reversed_right_half // 10
+        )
