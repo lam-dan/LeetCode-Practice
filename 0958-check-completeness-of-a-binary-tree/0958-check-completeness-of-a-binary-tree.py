@@ -47,5 +47,14 @@ class Solution:
         # If the loop completes without returning False, the tree is complete
         return True
             
+        # Time Complexity: O(n) — we visit each of the n nodes exactly once in level-order
+        # Space Complexity: O(n) in the worst case:
+        # - In a complete binary tree, the last level can contain up to n/2 nodes.
+        # - Since we use a queue for level-order traversal, the queue will at most hold:
+        #     - all nodes of one level and
+        #     - potentially some from the next level.
+        # - Since we pop from the front before adding children, the queue grows gradually.
+        # - So while the absolute worst-case bound is O(n), the queue often holds no more than ~n/2 or ~2n/3 nodes in practice.
+        # - This ensures efficient memory usage during traversal.
 
 
