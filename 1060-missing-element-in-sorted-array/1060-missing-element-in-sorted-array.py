@@ -14,8 +14,13 @@ class Solution:
             #
             # This works because:
             # - nums[mid] - nums[0] gives the number of steps we've moved numerically
-            # - subtracting mid (which is 0-based) tells us how many numbers should exist between nums[0] and nums[mid]
-            # The result is the number of missing numbers between nums[0] and nums[mid]
+            # - subtracting mid (which is 0-index based) tells us how many numbers should exist between 
+            # nums[0] and nums[mid]. The result is the number of missing numbers between nums[0] and nums[mid]
+            
+            # mid is the distance in index space from nums[0] to nums[mid] → exactly how many numbers 
+            # should exist in a perfect sequence, nums[mid] - nums[0] is the distance in value space
+            # The difference gives how many values are missing
+            # No need to add or subtract 1 — the indexing and math already align naturally
             missing = nums[mid] - nums[0] - mid
 
             if missing < k:
