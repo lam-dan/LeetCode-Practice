@@ -13,12 +13,15 @@ class Solution:
         while left <= right:
             mid = (left + right) // 2
 
-            missing = arr[mid] - (mid + 1)  # Number of missing nums before arr[mid]
-            # We use arr[i] - (i + 1) to calculate how many values are missing up to index i, 
-            # based on how far arr[i] has jumped ahead from its ideal position. This only works 
-            # because the array is strictly increasing — every element is larger than the previous, 
-            # so missing counts grow. That lets us binary search over the index and compute the k-th 
-            # missing number as k + left.
+            # Missing positive integers always start from 1: [1, 2, 3, 4, 5, ...]
+            # So we normalize the mid index by adding 1 (expected value at that position)
+            # Then compare the actual value at arr[mid] to the expected value (mid + 1)
+            # Their difference gives us how many numbers are missing before arr[mid]
+            #
+            # Example: arr = [2,3,4,7,11], mid = 3
+            # → arr[3] = 7, expected = mid + 1 = 4
+            # → missing = 7 - 4 = 3 (missing numbers: 1, 5, 6)
+            missing = arr[mid] - (mid + 1)  
 
             if missing < k:
                 left = mid + 1  # Not enough missing numbers yet
