@@ -7,17 +7,22 @@ class Solution:
         while left <= right:
             mid = (left + right) // 2
 
-            # Calculate how many numbers are missing between nums[0] and nums[mid]
-            # Formula: nums[mid] - nums[0] - mid
-            # Because in a perfect sequence with no missing values:
-            # nums[mid] should equal nums[0] + mid
+            # Calculate how many numbers are missing up to index `mid`
+            # If the array had no missing numbers, then nums[mid] should equal nums[0] + mid
+            # So the number of missing values is the difference between the actual value
+            # and the expected value: nums[mid] - nums[0] - mid
+            #
+            # This works because:
+            # - nums[mid] - nums[0] gives the number of steps we've moved numerically
+            # - subtracting mid (which is 0-based) tells us how many numbers should exist between nums[0] and nums[mid]
+            # The result is the number of missing numbers between nums[0] and nums[mid]
             missing = nums[mid] - nums[0] - mid
 
             if missing < k:
-                # Not enough missing values yet → go right
+                # Not enough missing numbers yet → need to go right
                 left = mid + 1
             else:
-                # Too many or just enough → go left
+                # We've passed or reached the k-th missing number → try earlier index
                 right = mid - 1
 
         # At this point, left tells us how many valid (non-missing) numbers we've passed
