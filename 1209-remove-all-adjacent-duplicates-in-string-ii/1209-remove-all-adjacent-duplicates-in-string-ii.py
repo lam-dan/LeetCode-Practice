@@ -40,8 +40,7 @@ class Solution:
             else:
                 stack.append((char, 1))
         
-        result = ''.join(char * count for (char, count) in stack)
-        return result
+        return ''.join(char * count for (char, count) in stack)
 
                 
 
