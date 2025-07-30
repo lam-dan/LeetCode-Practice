@@ -5,55 +5,42 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        ptr1 = l1
-        ptr2 = l2
-        dummy = ListNode()
-        ptr3 = dummy
-        carry_value = 0
+        """
+        Problem Intuition:
+        - The input linked lists represent numbers in reverse order.
+          For example, the number 342 is represented as 2 -> 4 -> 3.
+        - We need to simulate elementary addition, digit by digit, from least significant to most significant.
+        - At each digit, we add the corresponding digits from both lists and any carry from the previous addition.
+        - The result should also be returned as a linked list in reverse order.
+        """
+        dummy = ListNode()          # Dummy head simplifies result list creation
+        current = dummy             # Pointer to the current end of the result list
+        carry = 0                   # Initialize carry to 0
+        # Loop through both lists until we've processed all digits and any leftover carry
+        while l1 or l2 or carry:
+            # Get values from the current nodes or 0 if one list is shorter
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
+            total = val1 + val2 + carry # Add the two digits and the carry from the previous step
+            digit = total % 10 # The new digit is the units place of the total
+            carry = total // 10 # Update the carry for the next iteration
+            current.next = ListNode(digit) # Add the digit to the result list
+            current = current.next
+            # Advance the input list pointers if possible
+            if l1:
+                l1 = l1.next
+            if l2:
+                l2 = l2.next
+        return dummy.next # Return the result list (skipping the dummy node)
+        # ---------------------------------------------------
+        # Time Complexity: O(max(n, m))
+        # - n: length of l1
+        # - m: length of l2
+        # - We traverse both lists once, doing constant work per node.
 
-        while ptr1 or ptr2:
-            if ptr2 and ptr1 is None:
-                ptr1_val = 0
-                ptr2_val = ptr2.val
-            elif ptr1 and ptr2 is None:
-                ptr1_val = ptr1.val
-                ptr2_val = 0
-            elif ptr1 and ptr2:
-                ptr1_val = ptr1.val
-                ptr2_val = ptr2.val
-            else:
-                break
-
-            total = ptr1_val + ptr2_val
-
-            if total // 10: # Calculates values > 10
-                stay_value = total % 10
-                new_node = ListNode(stay_value + carry_value)
-                carry_value = 1 # single digit max is 9 + 9 = 18
-            else:
-                new_total = total + carry_value
-                if new_total // 10:
-                    stay_value = new_total % 10
-                    new_node = ListNode(stay_value)
-                    carry_value = 1
-                else:
-                    new_node = ListNode(total + carry_value)
-                    carry_value = 0
-            if ptr1:
-                ptr1 = ptr1.next 
-            if ptr2:
-                ptr2 = ptr2.next 
-            
-            ptr3.next = new_node
-            ptr3 = ptr3.next
-            print("dummy.next", dummy)
-        
-        if carry_value:
-            new_node = ListNode(carry_value)
-            ptr3.next = new_node
-
-        return dummy.next
-
-            
+        # Space Complexity: O(max(n, m))
+        # - We create one new node per digit in the result.
+        # - In the worst case, the result has one extra digit (from final carry).
+        # - Auxiliary space is O(1) (only a few pointers and integers used).
 
 
