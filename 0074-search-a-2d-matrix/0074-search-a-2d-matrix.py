@@ -1,47 +1,32 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        if len(matrix) == 0:
+        if not matrix or not matrix[0]:
             return False
 
-        index = self.binary_search_index(matrix, target)
-        if index < 0:
-            return False
-        print("index", index)
-        array_with_num = self.binary_search_target(matrix[index], target)
-        print("array_with_sum", array_with_num)
-        return  array_with_num
+        r = len(matrix)
+        c = len(matrix[0])
 
-    def binary_search_index(self, array:List, target:int):
         left = 0
-        right = len(array) - 1
+        right = r * c - 1
 
         while left <= right:
-            mid = (left + right)//2
-            if array[mid][0] == target:
-                return mid
-            elif array[mid][0] > target:
-                right = mid - 1
-            else:
-                left = mid + 1
-        return right
+            mid = (left + right) // 2
 
-    def binary_search_target(self, array:List, target:int):
-        left = 0
-        # right = len(array) - 1 if len(array) - 1 else 1
-        right = len(array) - 1
+            # Convert mid index back to 2D matrix coordinates:
+            row = mid // c # Row index (integer division)
+            col = mid % c # Column index (modulo gives offset within row)
 
-        while left <= right:
-            mid = (left + right)// 2
-            print("array_mid", array[mid])
-            print("target", target)
-            if array[mid] == target:
+            mid_val = matrix[row][col]  # Actual value at that 2D position
+
+            # Debug: Print mid and corresponding matrix value
+            # print(f"Checking mid index {mid} -> matrix[{row}][{col}] = {mid_val}")
+
+            if mid_val == target:
                 return True
-            elif array[mid] > target:
-                right = mid - 1
-            else:
+            elif mid_val < target:
                 left = mid + 1
-        print("left", left)
+            else:
+                right = mid - 1
+            
         return False
-
-
 
