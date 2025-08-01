@@ -4,8 +4,8 @@ class Solution:
             return False
 
         index = self.binary_search_index(matrix, target)
-        if index < 0:
-            return False
+        # if index < 0:
+        #     return False
         array_with_num = self.binary_search_target(matrix[index], target)
         return  array_with_num
 
