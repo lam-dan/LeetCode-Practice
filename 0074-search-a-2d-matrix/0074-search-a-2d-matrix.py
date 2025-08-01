@@ -6,9 +6,7 @@ class Solution:
         index = self.binary_search_index(matrix, target)
         if index < 0:
             return False
-        print("index", index)
         array_with_num = self.binary_search_target(matrix[index], target)
-        print("array_with_sum", array_with_num)
         return  array_with_num
 
     def binary_search_index(self, array:List, target:int):
@@ -32,16 +30,12 @@ class Solution:
 
         while left <= right:
             mid = (left + right)// 2
-            print("array_mid", array[mid])
-            print("target", target)
             if array[mid] == target:
                 return True
             elif array[mid] > target:
                 right = mid - 1
             else:
                 left = mid + 1
-        print("left", left)
         return False
-
 
 
