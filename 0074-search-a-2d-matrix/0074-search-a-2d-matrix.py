@@ -22,11 +22,10 @@ class Solution:
 
     def binary_search_target(self, array:List, target:int):
         left = 0
-        # right = len(array) - 1 if len(array) - 1 else 1
         right = len(array) - 1
 
         while left <= right:
-            mid = (left + right)// 2
+            mid = (left + right) // 2
             if array[mid] == target:
                 return True
             elif array[mid] > target:
