@@ -18,7 +18,7 @@ class Solution:
                 res.append([nums[i], nums[left], nums[right]])
                 left += 1
                 right -= 1
-                while left < right and nums[left] == nums[left - 1]:
+                while left < right and nums[left - 1] == nums[left]:
                     left += 1
             elif total < 0:
                 left += 1
