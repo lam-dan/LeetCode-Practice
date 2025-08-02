@@ -6,13 +6,12 @@ class Solution:
             if nums[i] > 0:
                 break
             if i == 0 or nums[i - 1] != nums[i]:
-                res += self.two_pointers(nums, i)
+                self.two_pointers(nums, i, res)
         return res
 
-    def two_pointers(self, nums: List[int], i: int):
+    def two_pointers(self, nums: List[int], i: int, res):
         left = i + 1
         right = len(nums) - 1
-        res = []
         while left < right:
             total = nums[i] + nums[left] + nums[right]
             if total == 0:
@@ -25,7 +24,6 @@ class Solution:
                 left += 1
             elif total > 0:
                 right -= 1
-        return res
         
 
 
