@@ -6,6 +6,7 @@ class Solution:
         for i in range(len(nums)):
             if i > 0 and nums[i - 1] == nums[i]:
                 continue
+
             # Two Pointer
             left = i + 1
             right = len(nums) - 1
