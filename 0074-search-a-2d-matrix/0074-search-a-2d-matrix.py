@@ -18,7 +18,7 @@ class Solution:
                 right = mid - 1
             else:
                 left = mid + 1
-        return right
+        return left - 1
 
     def binary_search_target(self, array:List, target:int):
         left = 0
