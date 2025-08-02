@@ -21,7 +21,9 @@ class Solution:
                 right = mid - 1
             else:
                 left = mid + 1
-        return left - 1 # Handles edge case where left is basically
+        return max(0, right) # Handles edge case where left is basically
+        # You can also return the right pointer
+
         # matrix = [
         #     [1, 2, 3],    # Row 0
         #     [5, 6, 7],    # Row 1
@@ -31,14 +33,17 @@ class Solution:
         # 1. Target Lies Between Two Rows (Standard Floor Search Case)
         # Target = 7
         # returns left = 2 incorrectly
+        # return right = 1 Correctly
 
         # 2. Target Smaller than All Rows (Overshoot Below)
         # Target = 12
-        # returns left = 2 incorrectly
+        # returns left = 0 incorrectly
+        # return right = -1 Correctly -> Leads to False
 
         # 3. Target Larger than All Rows (Overshoot Above)
         # Target = 12
-        # returns left = 2 incorrectly
+        # returns left = 3 incorrectly
+        # returns right = 2 correctly
 
     def binary_search_target(self, array:List, target:int):
         left = 0
