@@ -11,7 +11,7 @@ class Solution:
         right = len(array) - 1
 
         while left <= right:
-            mid = (left + right)//2
+            mid = (left + right) // 2
             if array[mid][0] == target:
                 return mid
             elif array[mid][0] > target:
