@@ -5,6 +5,8 @@ class Solution:
 
         # Iterate through each number, considering nums[i] as the first element of the triplet
         for i in range(len(nums)):
+            if nums[i] > 0:
+                break
             # Skip duplicate numbers for i to avoid duplicate triplets
             if i > 0 and nums[i - 1] == nums[i]:
                 continue  # Move to next i if current nums[i] is the same as nums[i - 1]
