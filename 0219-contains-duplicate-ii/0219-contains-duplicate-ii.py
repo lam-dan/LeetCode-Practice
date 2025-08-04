@@ -21,3 +21,6 @@ class Solution:
 
         # If no duplicates are found within k distance, return False
         return False
+
+        # Time Complexity is O(n)
+        # Space Complexity is bounded by k, so O(k)
