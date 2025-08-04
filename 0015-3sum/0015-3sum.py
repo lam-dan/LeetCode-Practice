@@ -35,5 +35,17 @@ class Solution:
                 else:
                     # If total is too small, move the left pointer right to increase the sum
                     left += 1
-
         return res  # Return the list of all unique triplets that sum to 0
+
+        '''
+        Time Complexity: O(n²)
+        - Sorting the array takes O(n log n).
+        - Outer loop runs O(n) times.
+        - Inner two-pointer scan runs O(n) for each i.
+        - Overall time complexity is O(n²), as O(n²) dominates O(n log n).
+
+        Space Complexity: O(1) extra space (excluding output).
+        - Sorting is in-place.
+        - Only a constant amount of extra variables are used.
+        - The output list is not counted in auxiliary space.
+        '''
