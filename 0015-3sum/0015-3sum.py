@@ -1,51 +1,35 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        nums.sort()  # Step 1: Sort the array to apply two-pointer approach
-        res = []     # This will store the final list of triplets
+        nums.sort()
+        result = []
 
-        # Iterate through each number, considering nums[i] as the first element of the triplet
         for i in range(len(nums)):
             if nums[i] > 0:
                 break
-            # Skip duplicate numbers for i to avoid duplicate triplets
-            if i > 0 and nums[i - 1] == nums[i]:
-                continue  # Move to next i if current nums[i] is the same as nums[i - 1]
-            # Initialize two pointers
-            left = i + 1                # Start left pointer right after i
-            right = len(nums) - 1       # Start right pointer at the end of the array
+            # 2 pointers
+            # if i > 0 and nums[i] == nums[i-1]:
+            #     continue
 
-            # Search for two numbers nums[left] and nums[right] such that their sum with nums[i] is 0
-            while left < right:
-                total = nums[i] + nums[left] + nums[right]  # Calculate the sum of the triplet
-                if total == 0:
-                    # Found a valid triplet, add it to the result
-                    res.append([nums[i], nums[left], nums[right]])
-                    # Move both pointers inward to look for the next unique pair
-                    left += 1
-                    right -= 1
-                    # Skip duplicate numbers for left pointer to avoid duplicate triplets
-                    while left < right and nums[left] == nums[left - 1]:
+            if i == 0 or nums[i] != nums[i -1]:
+                left = i + 1
+                right = len(nums) - 1
+
+                while left < right:
+                    total = nums[i] + nums[left] + nums[right]
+                    
+                    if total == 0:
+                        result.append([nums[i], nums[left], nums[right]])
                         left += 1
-                    # Skip duplicate numbers for right pointer to avoid duplicate triplets
-                    while left < right and nums[right] == nums[right + 1]:
                         right -= 1
-                elif total > 0:
-                    # If total is too big, move the right pointer left to decrease the sum
-                    right -= 1
-                else:
-                    # If total is too small, move the left pointer right to increase the sum
-                    left += 1
-        return res  # Return the list of all unique triplets that sum to 0
+                        while left < right and nums[left] == nums[left - 1]:
+                            left += 1
+                        while left < right and nums[right] == nums[right + 1]:
+                            right -= 1
+                    elif total > 0:
+                        right -= 1
+                    else: 
+                        left += 1
+        return result
 
-        '''
-        Time Complexity: O(n²)
-        - Sorting the array takes O(n log n).
-        - Outer loop runs O(n) times.
-        - Inner two-pointer scan runs O(n) for each i.
-        - Overall time complexity is O(n²), as O(n²) dominates O(n log n).
 
-        Space Complexity: O(1) extra space (excluding output).
-        - Sorting is in-place.
-        - Only a constant amount of extra variables are used.
-        - The output list is not counted in auxiliary space.
-        '''
+            
