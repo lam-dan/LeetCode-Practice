@@ -8,14 +8,12 @@ class Solution:
         
     def averageOfSubtree(self, root: TreeNode) -> int:
         self.global_count = 0
-
         # why don't we need to pass in total sum and total count in dfs()
         # That would be true if we were trying to maintain a running total 
         # across recursive calls (e.g. pre-order logic).
         # we're doing post-order, and the sum/count bubble up from child to parent.
         # If you tried pre-order logic, you wouldn't get an accurate calculation of total sum, total acount
         # since you're too early in the traversal to calculate for the subtree average
-
         def dfs(node):
             # Base Case
             if node is None:
@@ -41,5 +39,10 @@ class Solution:
 
         dfs(root)
         return self.global_count
+
+        # Time Complexity is O(n) since we need to traverse to all the nodes in the tree to calculate all the average
+        # at each subtree node
+
+        # Space Complexity is O(1) since we don't create any additional space
     
         
