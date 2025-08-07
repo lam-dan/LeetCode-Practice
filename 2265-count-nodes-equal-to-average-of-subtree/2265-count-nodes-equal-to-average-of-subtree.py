@@ -5,44 +5,38 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-        
     def averageOfSubtree(self, root: TreeNode) -> int:
-        self.global_count = 0
-        # why don't we need to pass in total sum and total count in dfs()
-        # That would be true if we were trying to maintain a running total 
-        # across recursive calls (e.g. pre-order logic).
-        # we're doing post-order, and the sum/count bubble up from child to parent.
-        # If you tried pre-order logic, you wouldn't get an accurate calculation of total sum, total acount
-        # since you're too early in the traversal to calculate for the subtree average
+        self.total_count = 0
+        # Need to keep track of current node, and total count
+        # Calculate average at each node
+        # Average is calculated by the sum of the left subtree, right subtree
+        # current node, and total count
         def dfs(node):
-            # Base Case
+            # Base Case for nodes that are null
             if node is None:
-                return (0, 0)
+                return (0,0)
 
-            (left_sum, left_count) = dfs(node.left)
-            (right_sum, right_count) = dfs(node.right)
-            
-            # Calculate add left and right subtree total sum when merging
-            total_sum = left_sum + right_sum
-            total_sum += node.val # Add current node val
+            # Do I need to check for existence - no
+            # Traversal is needed for every node
+            left_count, left_total = dfs(node.left)
+            right_count, right_total = dfs(node.right)
 
-            # Calculate left and right subtree counts
+            # Calculating Total Count + Current Node
             total_count = left_count + right_count
-            total_count += 1 # Add current node count
+            total_count += 1
 
-            avg = total_sum // total_count # Calculate average for current node
+            # Calculating Total Value
+            total_value = left_total + right_total
+            total_value += node.val
 
-            if avg == node.val: # Compare current average for node vs current node val
-                self.global_count += 1
+            # Calculating Average
+            avg = total_value // total_count
 
-            return (total_sum, total_count) # This is the return for the running total from child to parent
+            if avg == node.val:
+                self.total_count += 1
+
+            return total_count, total_value # This will return to line 21 or 22
 
         dfs(root)
-        return self.global_count
-
-        # Time Complexity is O(n) since we need to traverse to all the nodes in the tree to calculate all the average
-        # at each subtree node
-
-        # Space Complexity is O(1) since we don't create any additional space
-    
+        return self.total_count
         
