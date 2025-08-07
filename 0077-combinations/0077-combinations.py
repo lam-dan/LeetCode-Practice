@@ -27,11 +27,14 @@ class Solution:
             if len(array) == k:
                 self.results.append(array.copy())
                 return
-            for num in range(first_num, n + 1):
+
+            # Pruning Optimization
+            max_start = n - (k - len(array)) + 1
+
+            for num in range(first_num, max_start + 1):
                 array.append(num)
                 dfs(array, num + 1)
                 array.pop()
-
         dfs([], 1)
         return self.results
 
