@@ -8,8 +8,6 @@ class Solution:
 
         for i in range(len(haystack)):
             j = 0
-            print("i", i)
-            print("j", j)
             while i < len(haystack) and haystack[i] == needle[j]:
                 if j == 0:
                     index = i
@@ -18,8 +16,6 @@ class Solution:
                 j += 1
                 if needle_count == len(needle):
                     return index
-                print("I", i)
-                print("J", j)
             needle_count = 0
         return -1
 
