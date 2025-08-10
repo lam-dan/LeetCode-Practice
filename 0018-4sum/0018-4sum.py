@@ -11,34 +11,14 @@ class Solution:
         for i in range(n - 3):
             # Skip duplicate a's
             if i == 0 or nums[i] != nums[i - 1]:
-                # Optional pruning for the i loop
-                # min_sum_i = nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3]
-                # if min_sum_i > target:
-                #     break  # sums will only grow as i increases
-                # max_sum_i = nums[i] + nums[n - 1] + nums[n - 2] + nums[n - 3]
-                # if max_sum_i < target:
-                #     continue  # even the largest possible with this i is too small
-
                 for j in range(i + 1, n - 2):
                     # Skip duplicate b's (with the same i)
                     if j == i + 1 or nums[j] != nums[j - 1]:
-                        
-
-                    # # Optional pruning for the j loop
-                    # min_sum_j = nums[i] + nums[j] + nums[j + 1] + nums[j + 2]
-                    # if min_sum_j > target:
-                    #     break  # increasing j will only increase sums here
-                    # max_sum_j = nums[i] + nums[j] + nums[n - 1] + nums[n - 2]
-                    # if max_sum_j < target:
-                    #     continue
-
                     # Two pointers for c, d
                         left = j + 1
                         right = n - 1
-
                         while left < right:
                             total = nums[i] + nums[j] + nums[left] + nums[right]
-
                             if total == target:
                                 res.append([nums[i], nums[j], nums[left], nums[right]])
                                 # Move left/right past duplicates
@@ -52,7 +32,6 @@ class Solution:
                                 left += 1
                             else:
                                 right -= 1
-
         return res
         
 
