@@ -1,25 +1,19 @@
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
-        # Prefix Sum
-        prefix_forwards = [nums[0]]
-        prefix_backwards = [nums[-1]]
+        total_sum = sum(nums)
+        left_sum = 0
 
-        for i in range(1, len(nums)):
-            prefix_forwards.append(nums[i] + prefix_forwards[-1])
-        
-        for i in range(len(nums) - 2, -1, -1):
-            prefix_backwards.append(nums[i] + prefix_backwards[-1])
-
-        prefix_backwards.reverse()
-        print("prefix_fowards", prefix_forwards)
-        print("prefix_backwards", prefix_backwards)
-
+        # At each point in time we have the running total of the left sum 
+        # we check to see if that left sum is equal to the right side by the formula
+        # total sum of the nums array subtracted by the left sum and the current value of the pointer
+        # this will give us the sum on the right hand side.
         for i in range(len(nums)):
-            if prefix_forwards[i] == prefix_backwards[i]:
+            if left_sum == (total_sum - left_sum - nums[i]):
                 return i
+            left_sum += nums[i] # If they're not equal, continue adding current value to perfix sum
         return -1
+
+        # Time Complexity is O(n)
+        # Space Complexity is O(1)
+
         
-
-
-
-
