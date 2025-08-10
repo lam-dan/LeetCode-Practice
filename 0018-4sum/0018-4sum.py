@@ -1,22 +1,21 @@
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        n = len(nums)
         nums.sort()
         res = []
 
         # Early exit
-        if n < 4:
+        if len(nums) < 4:
             return res
 
-        for i in range(n - 3):
+        for i in range(len(nums) - 3):
             # Skip duplicate a's
             if i == 0 or nums[i] != nums[i - 1]:
-                for j in range(i + 1, n - 2):
+                for j in range(i + 1, len(nums) - 2):
                     # Skip duplicate b's (with the same i)
                     if j == i + 1 or nums[j] != nums[j - 1]:
                     # Two pointers for c, d
                         left = j + 1
-                        right = n - 1
+                        right = len(nums) - 1
                         while left < right:
                             total = nums[i] + nums[j] + nums[left] + nums[right]
                             if total == target:
