@@ -14,13 +14,20 @@ class Solution:
                 min_sum_i = nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3]
                 if min_sum_i > target:
                     break
-                max_sum_i = nums[i] + nums[i - 1] + nums[i - 2] + nums[i - 3]
+                max_sum_i = nums[i] + nums[len(nums) - 1] + nums[len(nums) - 2] + nums[len(nums) - 3]
                 if max_sum_i < target:
                     continue
 
                 for j in range(i + 1, len(nums) - 2):
                     # Skip duplicate b's (with the same i)
                     if j == i + 1 or nums[j] != nums[j - 1]:
+                        min_sum_j = nums[i] + nums[j] + nums[j + 1] + nums[j + 2]
+                        if min_sum_j > target:
+                            break
+                        max_sum_j = nums[i] + nums[j] + nums[len(nums) - 1] + nums[len(nums) - 2]
+                        if max_sum_j < target:
+                            continue
+
                     # Two pointers for c, d
                         left = j + 1
                         right = len(nums) - 1
