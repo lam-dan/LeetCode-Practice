@@ -1,21 +1,46 @@
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        # Find min and max values
-        max_num, min_num = max(nums), min(nums)
-        bucket_range = max_num - min_num
+        target = k - 1  # kth largest -> index in a descending-partitioned array
 
-        # Create buckets as lists
-        bucket = [[] for _ in range(bucket_range + 1)]
+        def partition3(lo, hi):
+            """
+            3-way partition (descending):
+            After partition:
+              nums[lo:lt]       > pivot
+              nums[lt:gt+1]    == pivot
+              nums[gt+1:hi+1]   < pivot
+            Returns (lt, gt): the inclusive range where elements equal pivot ended up.
+            """
+            p = random.randint(lo, hi)
+            pivot = nums[p]
+            nums[p], nums[hi] = nums[hi], nums[p]  # move pivot to end temporarily
 
-        # Place numbers in buckets (directly storing values)
-        # We take place the num but we subtract by min to offset negative values
-        for num in nums:
-            bucket[num - min_num].append(num)
+            # Dutch National Flag pointers
+            lt = lo         # next position to place an element > pivot
+            i = lo          # current scan index
+            gt = hi         # next position to place an element < pivot
 
-        flat = [value for i in bucket for value in i]
-        i = len(flat) - k
+            while i <= gt:
+                if nums[i] > pivot:
+                    nums[lt], nums[i] = nums[i], nums[lt]
+                    lt += 1
+                    i += 1
+                elif nums[i] < pivot:
+                    nums[i], nums[gt] = nums[gt], nums[i]
+                    gt -= 1
+                else:
+                    i += 1
 
-        # Flatten the bucket array in reverse order and extract kth largest
-        # flattened = [num for i in range(len(bucket) - 1, -1, -1) for num in bucket[i]]
-        # print(flattened)
-        return flat[i]
+            return lt, gt
+
+        lo, hi = 0, len(nums) - 1
+        while True:
+            lt, gt = partition3(lo, hi)
+
+            if lt <= target <= gt:
+                # target falls inside the == pivot block; any element there is the answer
+                return nums[lt]
+            elif target < lt:
+                hi = lt - 1
+            else:
+                lo = gt + 1
