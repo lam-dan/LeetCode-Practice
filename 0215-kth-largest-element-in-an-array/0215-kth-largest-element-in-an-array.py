@@ -1,5 +1,3 @@
-from typing import List
-
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         # Find min and max values
@@ -13,12 +11,9 @@ class Solution:
         # We take place the num but we subtract by min to offset negative values
         for num in nums:
             bucket[num - min_num].append(num)
-        print(bucket)
 
         flat = [value for i in bucket for value in i]
         i = len(flat) - k
-
-        print(flat)
 
         # Flatten the bucket array in reverse order and extract kth largest
         # flattened = [num for i in range(len(bucket) - 1, -1, -1) for num in bucket[i]]
