@@ -17,6 +17,9 @@ class Solution:
             elif abs(node.val - target) == abs(closest - target):
                 closest = min(closest, node.val)
 
+            # Use BST property to decide the direction:
+            # - If target is less, the closer value (if any) must be in the left subtree.
+            # - If target is greater or equal, go right.
             if target < node.val:
                 node = node.left
             else:
