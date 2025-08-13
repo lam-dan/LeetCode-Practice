@@ -9,9 +9,18 @@
 class Solution:
     def closestValue(self, root: Optional[TreeNode], target: float) -> int:
         closest = root.val
-        while root:
-            closest = min(root.val, closest, key = lambda x: (abs(target - x), x))
-            root = root.left if target < root.val else root.right
+
+        node = root
+        while node:
+            if abs(node.val - target) < abs(closest - target):
+                closest = node.val
+            elif abs(node.val - target) == abs(closest - target):
+                closest = min(closest, node.val)
+
+            if target < node.val:
+                node = node.left
+            else:
+                node = node.right
         return closest
         
                  
