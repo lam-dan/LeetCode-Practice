@@ -4,36 +4,33 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
-
 class Solution:
     def closestValue(self, root: Optional[TreeNode], target: float) -> int:
-        # Initialize the closest value with the root's value.
-        # We'll refine this as we traverse.
-        closest = root.val
-
+        # Edge case where the delta is basically tied and we need to 
+        # take the smallest node value
+        # Regular Binary Tree Traversing without recursion
+        # Pre Order processing
         node = root
-        while node:
-            # If this node is closer to target than our current best, update it.
-            if abs(node.val - target) < abs(closest - target):
-                closest = node.val
-            # Optional tie-breaker (uncomment if you want smaller value on ties):
-            elif abs(node.val - target) == abs(closest - target):
-                closest = min(closest, node.val)
+        closest = node.val
 
-            # Use BST property to decide the direction:
-            # - If target is less, the closer value (if any) must be in the left subtree.
-            # - If target is greater or equal, go right.
-            if target < node.val:
-                node = node.left
-            else:
+        while node:
+            current_delta = abs(node.val - target)
+            closest_delta = abs(closest - target)
+
+            if current_delta < closest_delta:
+                closest = node.val
+            # Edge case where the delta is tied
+            elif current_delta == closest_delta:
+                closest = min(closest, node.val)
+                
+            if node.val < target:
                 node = node.right
+            else:
+                node = node.left
+
 
         return closest
-
-        # Time: O(H) (height of tree; O(log N) on average, O(N) worst if skewed)
-        # Space: O(1) (no recursion stack or extra arrays)
-                 
+            
 
 
 
