@@ -8,10 +8,7 @@ class Solution:
         p2 = n - 1
         p3 = n + m - 1
 
-
-        while p3 >= 0:
-            if p2 < 0:
-                break
+        while p2 >= 0:
             if p1 >= 0 and nums1[p1] > nums2[p2]:
                 nums1[p3] = nums1[p1]
                 p1 -= 1
