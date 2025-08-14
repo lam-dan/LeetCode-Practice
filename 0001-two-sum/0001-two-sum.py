@@ -1,19 +1,14 @@
-from collections import defaultdict
-
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        dic = defaultdict()  # Dictionary to store number → index mappings
+        
+        seen = {}
 
-        # Iterate through the list with index and value
-        for i, num in enumerate(nums):
-            complement = target - num  # The value we need to find to form a pair
+        for i in range(len(nums)):
+            complement = target - nums[i]
+            if nums[i] in seen:
 
-            # If the complement has been seen before, we found the solution
-            if complement in dic:
-                # Return the index of the complement and the current index
-                return [dic[complement], i]
+                return [seen[nums[i]],i]
             else:
-                # Otherwise, store the current number and its index
-                dic[num] = i
+                seen[complement] = i
+        
 
-        return []  # Return empty list if no valid pair is found (though problem guarantees one exists)
