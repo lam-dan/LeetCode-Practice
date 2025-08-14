@@ -6,30 +6,30 @@
 #         self.right = right
 class Solution:
     def closestValue(self, root: Optional[TreeNode], target: float) -> int:
-        # Edge case where the delta is basically tied and we need to 
-        # take the smallest node value
-        # Regular Binary Tree Traversing without recursion
-        # Pre Order processing
         node = root
         closest = node.val
 
+
         while node:
+            # Preprocessing
             current_delta = abs(node.val - target)
             closest_delta = abs(closest - target)
 
             if current_delta < closest_delta:
                 closest = node.val
-            # Edge case where the delta is tied between 2 nodes in the tree
             elif current_delta == closest_delta:
-                closest = min(closest, node.val)
-                
+                closest = min(closest, node.val) # Handle edge cases where nodes are equal
+
+            # Traversal aftrerwards
             if node.val < target:
                 node = node.right
             else:
                 node = node.left
-
         return closest
+
+        # Time Complexity is O(n) 
+        # Space Complexity is O(1) not creating an extra spaace
             
 
-
+            
 
