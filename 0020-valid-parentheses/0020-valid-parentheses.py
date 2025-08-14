@@ -1,11 +1,11 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = []
         mapping = {
-            ")": "(",
-            "}": "{",
-            "]": "["
-            }
+            ")" : "(",
+            "}" : "{",
+            "]" : "["
+        }
+        stack = []
 
         for i in range(len(s)):
             if s[i] in mapping:
