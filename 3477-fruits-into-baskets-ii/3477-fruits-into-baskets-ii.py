@@ -1,18 +1,12 @@
 class Solution:
     def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
-        count = len(fruits)  # start with all fruits unplaced
-        n = len(baskets)
+        count = len(fruits)
 
-        for fi in range(len(fruits)):  # loop over fruit indices
-            for bi in range(n):        # loop over basket indices
-                if baskets[bi] >= fruits[fi]:  # basket fits
-                    baskets[bi] = -1           # mark as used
-                    count -= 1                 # one less unplaced fruit
-                    break                      # move to next fruit
-
-        return count  # remaining unplaced fruits
-            
-
-            
-
-
+        for i in range(len(fruits)):
+            for j in range(len(baskets)):
+                if baskets[j] >= fruits[i]:
+                    count -= 1
+                    baskets[j] = -1
+                    break
+        return count
+        
