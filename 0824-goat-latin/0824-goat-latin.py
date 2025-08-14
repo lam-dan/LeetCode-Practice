@@ -16,5 +16,8 @@ class Solution:
             result.append(new_word)
         return " ".join(result)
 
+        # Time Complexity is O(n^2)
+        # Space Complexity is O(n^2)
+
 
 
