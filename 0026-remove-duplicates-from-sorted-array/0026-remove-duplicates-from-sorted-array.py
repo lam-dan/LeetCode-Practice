@@ -1,16 +1,23 @@
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        insert_index = 1
+        # 2 pointers
+        # i to keep track of position of iteration
+        # j to updates in the array
+        i = 1
+        j = 1
+        while i < len(nums):
+            if nums[i] != nums[i - 1]:
+                nums[j] = nums[i]
+                j += 1
+            i += 1
+        return j # Return the index of our last update
 
-        for i in range(1, len(nums)):
-            # If previous value is not equal to current value
-            if nums[i - 1] != nums[i]:
-                # Updating the insert index in our main array
-                nums[insert_index] = nums[i]
-                # Incrementing insert index count by 1
-                insert_index += 1
-        return insert_index
+        # Time Complexity is O(n) - worst case we iterate through n number of numbers
+        # Space Complexity is O(1) - pointers only
 
-        # Time Complexity is O(n) where n is the number of integers in nums
-        # Space Complexity is O(1) since we don't create any data structures
+        
 
+            
+
+
+        
