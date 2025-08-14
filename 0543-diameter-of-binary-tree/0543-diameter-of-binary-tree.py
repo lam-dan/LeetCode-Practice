@@ -6,19 +6,18 @@
 #         self.right = right
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        # DFS Approach  
-
+        # DFS Approach, Post-Order Processing
+        # Accumulate counts on the return traversing back up
         self.diameter = 0
-
         def dfs(node):
             if node is None:
                 return 0
             node_left = dfs(node.left)
             node_right = dfs(node.right)
-
             self.diameter = max(self.diameter, node_left + node_right)
-
             return 1 + max(node_left, node_right)
-
         dfs(root)
         return self.diameter
+
+        # Time Complexity O(n) 
+        # Space Complexity is O(n)
