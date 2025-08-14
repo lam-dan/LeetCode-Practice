@@ -19,7 +19,7 @@ class Solution:
 
             if current_delta < closest_delta:
                 closest = node.val
-            # Edge case where the delta is tied
+            # Edge case where the delta is tied between 2 nodes in the tree
             elif current_delta == closest_delta:
                 closest = min(closest, node.val)
                 
@@ -27,7 +27,6 @@ class Solution:
                 node = node.right
             else:
                 node = node.left
-
 
         return closest
             
