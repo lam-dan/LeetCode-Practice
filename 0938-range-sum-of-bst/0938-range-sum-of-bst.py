@@ -5,21 +5,19 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def __init__(self):
-        self.result = []
-
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        result = []
+        # DFS Pre-Order Traversal
+        self.sum = 0
 
-        def dfs(root):
-            if root is None:
-                return
-            if low <= root.val <= high: 
-                self.result.append(root.val)
-
-            dfs(root.left)
-            dfs(root.right)
-
+        def dfs(node):
+            if node is None:
+                return 0
+            if low <= node.val <= high:
+                self.sum += node.val
+            dfs(node.left)
+            dfs(node.right)
         dfs(root)
-        return sum(self.result)
+        return self.sum
 
+        # Time Complexity is O(n)
+        # Space Complexity is O(n)
