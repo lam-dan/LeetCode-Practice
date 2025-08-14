@@ -3,7 +3,6 @@ class Solution:
         # 2 pointers
 
         result = [0] * len(nums)
-
         left = 0
         right = len(nums) - 1
         i = len(nums) - 1
@@ -18,3 +17,6 @@ class Solution:
             result[i] = square * square
             i -= 1
         return result
+        # Time Complexity is O(n)
+        # Space Complexity is O(n)
+
