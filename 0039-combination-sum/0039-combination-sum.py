@@ -4,8 +4,6 @@ class Solution:
         candidates.sort()
 
         def dfs(i, array, prefix_sum):
-            if i > len(candidates):
-                return
             if prefix_sum == target:
                 self.result.append(array.copy())
                 return 
