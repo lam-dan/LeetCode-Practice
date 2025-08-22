@@ -52,7 +52,7 @@ class Solution:
         # 4) If current char is ")", skip it (end of this subtree)
         if index < len(s) and s[index] == ")":
             index += 1
-        
+    
         return node, index
 
         # Time Complexity is O(n) where n is the number of characters in the string
