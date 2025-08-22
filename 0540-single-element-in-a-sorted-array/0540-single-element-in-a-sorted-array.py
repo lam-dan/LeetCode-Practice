@@ -17,7 +17,7 @@ class Solution:
         # Loop until we converge to the single element's index.
         while left < right:
             # Midpoint (avoid potential overflow style; Python doesn't overflow but this is idiomatic).
-            mid = left + (right - left) // 2
+            mid = (left + right )// 2
 
             # Force `mid` to be EVEN so that (mid, mid+1) form a candidate pair boundary.
             # If mid is odd, decrement by 1 to make it even.
