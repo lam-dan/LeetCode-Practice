@@ -55,5 +55,7 @@ class Solution:
         
         return node, index
 
+        # Time Complexity is O(n) where n is the number of characters in the string
+        # Space Complexity is O(h) where h is the height of the tree because each recursive call creates space in memory for the call stack.
         
 
