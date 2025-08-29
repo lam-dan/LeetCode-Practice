@@ -21,11 +21,13 @@ class Solution:
             # Update suffix maximum if current digit is strictly larger.
             # (Strict '>' keeps the rightmost occurrence of equal digits.)
             if nums[i] > max_num:
-                max_num, max_idx = nums[i], i
+                max_num = nums[i]
+                max_idx = i
             # If current digit is smaller than the best to its right,
             # record a swap opportunity (move a bigger digit left).
             if nums[i] < max_num:
-                swap_i, swap_j = i, max_idx
+                swap_i = i
+                swap_j = max_idx
 
         # Perform the single allowed swap (if no opportunity was found, this is effectively a no-op).
         temp = nums[swap_i]
