@@ -8,6 +8,7 @@ class Solution:
                 close_stack.append(s[i])
             else:
                 open_stack.append(s[i])
+
             if len(close_stack) > len(open_stack):
                 return False
 
