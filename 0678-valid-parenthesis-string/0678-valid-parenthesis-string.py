@@ -14,7 +14,6 @@ class Solution:
         open_stack = []
         close_stack = []
 
-
         for i in range(len(s)-1, -1, -1):
             if s[i] == "(":
                 open_stack.append(s[i])
