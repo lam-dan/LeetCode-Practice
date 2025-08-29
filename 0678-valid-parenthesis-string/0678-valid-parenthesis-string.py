@@ -17,7 +17,7 @@ class Solution:
                 elif len(star_stack) > 0:
                     star_stack.pop()
 
-        while len(open_stack) > 0 and len(star_stack) > 0:
+        if len(open_stack) > 0 and len(star_stack) > 0:
             if open_stack.pop() > star_stack.pop():
                 return False
 
