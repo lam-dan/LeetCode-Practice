@@ -52,13 +52,15 @@ class Solution:
                 close_count += 1
             elif s[i] == "*":
                 star_count += 1
-            
             # If opens exceed all possible closes (including stars-as-closes), fail
             if open_count > close_count + star_count:
                 return False
         
         # Passed both checks -> valid string
         return True
+
+        # Time Complexity is O(n)
+        # Space Complexity is O(1)
         
 
 
