@@ -3,7 +3,8 @@ from collections import Counter
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         chars = {}
-        left = right = 0
+        left = 0
+        right = 0
 
         res = 0
         for right in range(len(s)):
