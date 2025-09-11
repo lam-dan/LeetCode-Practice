@@ -4,7 +4,6 @@ class Solution:
         star = []
 
         for i in range(len(s)):
-
             if s[i] == "(":
                 left.append(i) # Track positions using index
             elif s[i] == "*":
@@ -16,9 +15,10 @@ class Solution:
                     star.pop()
                 else:
                     return False
+
+        # 2 pointers
         i = len(left) - 1      # top of the 'left' stack
         j = len(star) - 1      # top of the 'star' stack
-        
         while i >= 0 and j >= 0:
             if left[i] > star[j]:
                 # latest '(' occurs after latest '*': impossible to match
