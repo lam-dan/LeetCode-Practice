@@ -3,15 +3,16 @@ class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         count = Counter(nums)
 
-        bucket = [ [] for _ in range(len(nums) + 1)]
+        bucket_list = [ [] for _ in range(len(nums) + 1)]
 
         for count, num in count.items():
-            bucket[num].append(count)
+            bucket_list[num].append(count)
 
         res = []
-        for i in range(len(bucket) -1, -1, -1):
-            for j in range(len(bucket[i])):
-                res.append(bucket[i][j])
+
+        for bucket in reversed(bucket_list):
+            for num in bucket:
+                res.append(num)
                 k -= 1 # Subtract from our total count
                 if k == 0:
                     return res
