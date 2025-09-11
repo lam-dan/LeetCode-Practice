@@ -8,13 +8,14 @@ class Solution:
         for count, num in count.items():
             bucket[num].append(count)
 
-        print("bucket", bucket)
         res = []
         for i in range(len(bucket) -1, -1, -1):
             for j in range(len(bucket[i])):
                 res.append(bucket[i][j])
-                if len(res) == k:
+                k -= 1 # Subtract from our total count
+                if k == 0:
                     return res
+        return -1
                 
 
 
