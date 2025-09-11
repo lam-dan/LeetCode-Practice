@@ -1,25 +1,31 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        open_stack = []
-        close_stack = []
+        left = []
+        star = []
 
         for i in range(len(s)):
-            if s[i] == ")":
-                close_stack.append(s[i])
-            else:
-                open_stack.append(s[i])
 
-            if len(close_stack) > len(open_stack):
-                return False
-
-        open_stack = []
-        close_stack = []
-
-        for i in range(len(s)-1, -1, -1):
             if s[i] == "(":
-                open_stack.append(s[i])
+                left.append(i)
+            elif s[i] == "*":
+                star.append(i)
             else:
-                close_stack.append(s[i])
-            if len(open_stack) > len(close_stack):
+                if left:
+                    left.pop()
+                elif star:
+                    star.pop()
+                else:
+                    return False
+        
+        i = len(left) - 1      # top of the 'left' stack
+        j = len(star) - 1      # top of the 'star' stack
+
+        while i >= 0 and j >= 0:
+            if left[i] > star[j]:
+                # latest '(' occurs after latest '*': impossible to match
                 return False
-        return True
+            # match them and move both pointers left
+            i -= 1
+            j -= 1
+        # valid iff no '(' remain unmatched
+        return i < 0
