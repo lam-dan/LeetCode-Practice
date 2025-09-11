@@ -8,6 +8,7 @@ class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         # DFS Approach, Post-Order Processing
         # Accumulate counts on the return traversing back up
+        # Update maximum on the way back up as well
         self.diameter = 0
         def dfs(node):
             if node is None:
