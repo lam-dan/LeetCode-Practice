@@ -1,27 +1,18 @@
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        # [100,4,200,1,3,2]
-        # 100 - once we find the starting value, 
-        # we try to increase the length as much as we can
-        # 200
-        # 1 -> 2 -> 3 -> 4 maxn of length
+        longest_streak = 0
+        num_set = set(nums)
 
-        # 100
-        # 1 -> 2 -> 3 -> 4
-        # 200
-        unique = set(nums)
-        print(unique)
-        # n = len(nums)
+        for num in num_set:
+            if num - 1 not in num_set:
+                current_num = num
+                current_streak = 1
 
-        # print(n)
-        longest = 0
+                while current_num + 1 in num_set:
+                    current_num += 1
+                    current_streak += 1
 
-        for num in nums:
-            # print(i)
-            if (num - 1) not in unique:
-                length = 0
-                while (num + length) in unique:
-                    length += 1
-                longest = max(longest, length)
-        return longest
+                longest_streak = max(longest_streak, current_streak)
+
+        return longest_streak
 
