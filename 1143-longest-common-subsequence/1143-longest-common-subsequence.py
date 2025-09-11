@@ -5,6 +5,8 @@ class Solution:
             # Base Case
             if p1 == len(text1) or p2 == len(text2):
                 return 0
+            if p1 >= len(text1) or p2 >= len(text2):
+                return 
 
             if (p1, p2) in memo:
                 return memo[(p1, p2)]
