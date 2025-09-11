@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, key, value):
+    def __init__(self, key: int, value: int):
         self.key = key
         self.value = value
         self.next = None
@@ -7,68 +7,64 @@ class Node:
 
 class LRUCache:
     def __init__(self, capacity: int):
-        self.capacity = capacity
         self.cache = {}
+        self.capacity = capacity
         self.head = Node(None, None)
         self.tail = Node(None, None)
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    def get(self, key: int) -> int:
-        if key in self.cache:
-            node = self.cache[key]
-            # Delete the node DLL
-            self.delete(node)
-            # Move to the front of the head
-            self.move_front_of_head(node)
-            return node.value
-        else:
-            return -1
-
     def delete(self, node):
-        node_prev = node.prev
-        node_after = node.next
-        node_prev.next = node_after
-        node_after.prev = node_prev
-
-    def move_front_of_head(self, node):
+        prev_node = node.prev
+        next_node = node.next
+        prev_node.next = node.next
+        next_node.prev = node.prev
+    
+    def move_to_front(self, node):
         tmp = self.head.next
         self.head.next = node
         node.next = tmp
         node.prev = self.head
         tmp.prev = node
 
+    def get(self, key: int) -> int:
+        if key in self.cache:
+            node = self.cache[key]
+            self.delete(node)
+            self.move_to_front(node)
+            return node.value
+        else:
+            return -1
+        
     def put(self, key: int, value: int) -> None:
-        # print("key", key)
-        # print("value", value)
         if key in self.cache:
             node = self.cache[key]
             node.value = value
-            # Delete the node DLL
             self.delete(node)
-            # Move to the front of the head
-            self.move_front_of_head(node)
+            self.move_to_front(node)
             self.cache[key] = node
         else:
+            # To add key-value pair to the cache
+            # Need to check capacity first
             if len(self.cache) >= self.capacity:
+                #Evict LRU
                 node = self.tail.prev
-                # Eviction Policy
-                # Deleting the Node
-                # print(self.cache)
-                # print(node.value)
-                del self.cache[node.key]
                 self.delete(node)
-
+                del self.cache[node.key]
+            # Add to cache
             node = Node(key, value)
-            # Insert in the front of the head
-            self.move_front_of_head(node)
+            self.move_to_front(node)
             self.cache[key] = node
 
- 
+
+            
 
 
 
+    
         
+
+
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
