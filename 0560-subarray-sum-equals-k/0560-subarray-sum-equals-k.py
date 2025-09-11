@@ -1,24 +1,23 @@
-from collections import Counter
-
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        # Create hashmap for storing prefix_sum:frequency
-        prefix_sums = {}
-        prefix_sums[0] = 1 # Initialize empty array prefix_sum as frequency 1
-        curr_sum = 0 # cumulative sum at current index
-        count = 0 # count of subarrays
+        prefix_sum = {}
+        prefix_sum[0] = 1
+        count = 0
+        curr_sum = 0
 
-        for num in nums:
-            curr_sum += num
-            complement = curr_sum - k # complement of diff between current cumulative sum minus k
-            if complement in prefix_sums: #if you've seen complement before
-                count += prefix_sums[complement] # increase the count
 
-            if curr_sum in prefix_sums:
-                prefix_sums[curr_sum] += 1 # increment counter by one for current curr_sum
+        for i in range(len(nums)):
+            curr_sum += nums[i]
+            complement = curr_sum - k
+
+            if complement in prefix_sum:
+                count += prefix_sum[complement]
+
+            if curr_sum in prefix_sum:
+                prefix_sum[curr_sum] += 1
             else:
-                prefix_sums[curr_sum] = 1
-        print(prefix_sums)
+                prefix_sum[curr_sum] = 1
         return count
+            
 
-
+            
