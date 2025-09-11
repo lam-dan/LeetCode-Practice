@@ -6,9 +6,9 @@ class Solution:
         for i in range(len(s)):
 
             if s[i] == "(":
-                left.append(i)
+                left.append(i) # Track positions using index
             elif s[i] == "*":
-                star.append(i)
+                star.append(i) # Track positions using index
             else:
                 if left:
                     left.pop()
@@ -16,10 +16,9 @@ class Solution:
                     star.pop()
                 else:
                     return False
-        
         i = len(left) - 1      # top of the 'left' stack
         j = len(star) - 1      # top of the 'star' stack
-
+        
         while i >= 0 and j >= 0:
             if left[i] > star[j]:
                 # latest '(' occurs after latest '*': impossible to match
@@ -28,4 +27,4 @@ class Solution:
             i -= 1
             j -= 1
         # valid iff no '(' remain unmatched
-        return i < 0
+        return i < 0 # No more values in left stack means we have all matches
