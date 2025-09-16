@@ -6,9 +6,11 @@ class Solution:
         for i in range(len(nums)):
             complement = target - nums[i]
             if nums[i] in seen:
-
-                return [seen[nums[i]],i]
+                return [seen[nums[i]], i]
             else:
                 seen[complement] = i
+
+        return []
+        
         
 
