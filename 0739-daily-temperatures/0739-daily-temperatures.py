@@ -1,37 +1,21 @@
 class Solution:
-    def dailyTemperatures(self, temps: List[int]) -> List[int]:
-        n = len(temps)
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        # Monotic Decreasing Stack, as we add indices in the stack, the stack
+        # is sorted in a descending order
+        n = len(temperatures)
         ans = [0] * n
-        hottest = 0  # Track the hottest temperature seen so far (moving backwards)
-
-        # Traverse from the last day to the first
-        for i in range(n - 1, -1, -1):
-            # If today's temp is >= anything in the future, no warmer day exists
-            if temps[i] >= hottest:
-                hottest = temps[i]
-                continue
-
-            # Otherwise, there *is* a warmer day ahead
-            j = i + 1
-            # Jump ahead until we find a strictly warmer temperature.
-            #
-            # IMPORTANT: we must use <= here, not <.
-            # Why? Because "warmer" means strictly greater.
-            # If we used <, the loop would stop at equal temperatures,
-            # which are NOT warmer, and we'd give wrong answers.
-            #
-            # Counterexample 1: temps = [73, 73, 74]
-            #   Expected: [2, 1, 0]
-            #   Using < would stop at day 1 (73 == 73) → incorrectly [1, 1, 0].
-            #
-            # Counterexample 2: temps = [71, 72, 72, 73]
-            #   Expected: [1, 2, 1, 0]
-            #   Using < would stop day 1 at day 2 (72 == 72) → incorrectly [1, 1, 1, 0].
-            #
-            while temps[j] <= temps[i]:
-                j += ans[j]  # skip forward using precomputed answers
-
-            # The distance to the next warmer day is how far we jumped
-            ans[i] = j - i
-
+        stack = []  # stack stores indices of days that are still "unresolved"
+                    # i.e., we haven't yet found a warmer temperature for them
+        # Traverse from left to right
+        for i, temp in enumerate(temperatures):
+            # While the stack is not empty AND today's temperature is warmer
+            # than the temperature at the index on top of the stack...
+            while stack and temperatures[stack[-1]] < temp:
+                j = stack.pop()
+                # We found the next warmer day for day j
+                ans[j] = i - j   # distance between days
+                # Example: if temps[j] = 71 and temps[i] = 72, then ans[j] = i-j
+            # Push the current index onto the stack because we don't yet know
+            # when (or if) a warmer day will come for today.
+            stack.append(i)
         return ans
