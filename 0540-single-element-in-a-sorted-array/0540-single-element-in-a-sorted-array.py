@@ -1,25 +1,25 @@
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
-        lo, hi = 0, len(nums) - 1
+        left, right = 0, len(nums) - 1
 
-        while lo < hi:
-            mid = lo + (hi - lo) // 2
+        while left < right:
+            mid = (left + right) // 2
 
             if mid % 2 == 0:
-                # mid is even → should be the first element of a pair
+                # mid is even → should be the first of a pair; compare right neighbor
                 if nums[mid] == nums[mid + 1]:
-                    # Pair is intact → single is on the right
-                    lo = mid + 2
+                    # pair intact → single is to the right of this pair
+                    left = mid + 2
                 else:
-                    # Pair breaks here → single is at mid or to the left
-                    hi = mid
+                    # pair broken (or mid is the single) → keep left half including mid
+                    right = mid
             else:
-                # mid is odd → should be the second element of a pair
+                # mid is odd → should be the second of a pair; compare left neighbor
                 if nums[mid] == nums[mid - 1]:
-                    # Pair is intact → single is on the right
-                    lo = mid + 1
+                    # pair intact → single is to the right
+                    left = mid + 1
                 else:
-                    # Pair breaks here → single is to the left
-                    hi = mid - 1
+                    # pair broken → single is to the left
+                    right = mid - 1
 
-        return nums[lo]
+        return nums[left]
