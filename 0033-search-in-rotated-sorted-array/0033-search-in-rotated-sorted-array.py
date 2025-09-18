@@ -8,13 +8,13 @@ class Solution:
 
             if nums[mid] == target:
                 return mid
-            # Left sorted array
-            elif nums[left] <= nums[mid]:
+
+            if nums[left] <= nums[mid]:
                 if nums[left] <= target <= nums[mid]:
                     right = mid - 1
                 else:
                     left = mid + 1
-            else: # Right sorted array
+            else:
                 if nums[mid] <= target <= nums[right]:
                     left = mid + 1
                 else:
