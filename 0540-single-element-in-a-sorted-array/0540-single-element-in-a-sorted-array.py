@@ -1,43 +1,32 @@
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
-        """
-        Given a sorted array where every element appears exactly twice except for one element
-        which appears once, return that single element.
+        lo = 0
+        hi = len(nums) - 1
 
-        Key property in a sorted array of pairs:
-          - Before the single element, pairs start at EVEN indices: (0,1), (2,3), ...
-          - After  the single element, pairs start at ODD  indices:  (k, k+1) shifts by one
-        We exploit this by always aligning `mid` to an EVEN index and comparing nums[mid] with nums[mid+1].
-        """
+        # We binary search until the search space collapses to a single element.
+        while lo < hi:
+            mid = lo + (hi - lo) // 2
 
-        # Standard binary search boundaries.
-        left = 0
-        right = len(nums) - 1
-
-        # Loop until we converge to the single element's index.
-        while left < right:
-            # Midpoint (avoid potential overflow style; Python doesn't overflow but this is idiomatic).
-            mid = (left + right )// 2
-
-            # Force `mid` to be EVEN so that (mid, mid+1) form a candidate pair boundary.
-            # If mid is odd, decrement by 1 to make it even.
+            # Ensure mid always points to the *first element of a pair*
+            # (i.e., an even index). This makes reasoning easier because
+            # we can always compare nums[mid] with nums[mid+1].
             if mid % 2 == 1:
                 mid -= 1
 
-            # Now compare the pair at positions mid and mid+1.
+            # Case 1: nums[mid] == nums[mid+1]
+            # -> Pairing is correct up to this point (no disruption yet).
+            # -> That means the single element must lie *after* this pair.
+            # -> Since mid and mid+1 form a valid pair, skip them both.
             if nums[mid] == nums[mid + 1]:
-                # If they match, the single element is not in [left..mid+1].
-                # All pairs up to mid+1 are "proper" pairs, so we can skip them.
-                # Move left past this pair.
-                left = mid + 2
+                lo = mid + 2
             else:
-                # If they don't match, the pair is "broken" here,
-                # which means the single element is in [left..mid].
-                right = mid
+                # Case 2: nums[mid] != nums[mid+1]
+                # -> The "pairing rule" breaks here, so the single element
+                #    must be at mid or somewhere to the left.
+                hi = mid
 
-        # When left == right, we've narrowed down to the single element.
-        return nums[left]
+            # Invariant maintained:
+            #   The single element always lies on the side with an odd length.
 
-        # Time Complexity is O(log(n))
-        # Space Complexity is O(1)
-
+        # When lo == hi, we've converged on the single element.
+        return nums[lo]
