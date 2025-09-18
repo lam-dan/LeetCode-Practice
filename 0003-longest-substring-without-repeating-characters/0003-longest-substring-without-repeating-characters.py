@@ -1,24 +1,17 @@
-from collections import Counter
-
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        chars = {}
         left = 0
-        right = 0
+        max_len = 0
+        seen = set()
 
-        res = 0
-        for right in range(len(s)):
-            if s[right] in chars:
-                chars[s[right]] += 1
-            else:
-                chars[s[right]] = 1
-            while chars[s[right]] > 1:
-                chars[s[left]] -= 1
+        for i in range(len(s)):
+            while s[i] in seen:
+                seen.remove(s[left])
                 left += 1
-            res = max(res, right - left + 1)
-        return res
+            seen.add(s[i])
+            max_len = max(max_len, i - left + 1)
+        return max_len
+            
 
-
-
-
-
+            
+        
