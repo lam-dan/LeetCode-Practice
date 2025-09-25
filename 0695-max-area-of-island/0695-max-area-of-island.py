@@ -8,7 +8,6 @@ class Solution(object):
             return 0
 
         rows, cols = len(grid), len(grid[0])
-        visited = set()
 
         def dfs(r, c):
             if (
@@ -16,12 +15,11 @@ class Solution(object):
                 c < 0 or
                 r >= rows or 
                 c >= cols or
-                grid[r][c] == 0 or
-                (r,c) in visited
+                grid[r][c] == 0
              ):
                 return 0
 
-            visited.add((r,c))
+            grid[r][c] = 0
 
             return (1 + 
                 dfs(r + 1, c) +
@@ -32,7 +30,7 @@ class Solution(object):
         max_area = 0
         for r in range(rows):
             for c in range(cols):
-                if grid[r][c] == 1 and (r,c) not in visited:
+                if grid[r][c] == 1:
                     max_area = max(max_area, dfs(r,c))
                 
         return max_area
