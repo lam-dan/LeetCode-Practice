@@ -9,13 +9,13 @@ class Solution:
 
         for pos, spd in cars:
             # How long this car would take to reach the target if it were alone
-            t = (target - pos) / spd
+            time_to_target = (target - pos) / spd
 
             # Case 1: This car takes longer than the fleet ahead.
             # It cannot catch up before reaching the target → it forms a new fleet.
-            if t > last_time:
+            if time_to_target > last_time:
                 fleets += 1
-                last_time = t   # update the "slowest fleet" arrival time to this one
+                last_time = time_to_target   # update the "slowest fleet" arrival time to this one
 
             # Case 2: This car's time is <= last_time.
             # That means it would arrive sooner or at the same time if alone,
