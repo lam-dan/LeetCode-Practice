@@ -4,7 +4,6 @@ class Solution:
         operators = {
             '+', '-', '*', '/'
         }
-
         for i in range(len(tokens)):
             if tokens[i] in operators:
                 if stack and len(stack) >= 2:
@@ -20,5 +19,4 @@ class Solution:
                         stack.append(int(first / second))
             else:
                 stack.append(int(tokens[i]))
-
         return stack[-1]
