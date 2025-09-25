@@ -1,0 +1,14 @@
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        cars = sorted(zip(position, speed), reverse=True)  # sort by position descending
+        fleets = 0
+        last_time = 0   # arrival time of the last fleet leader
+
+        for pos, spd in cars:
+            t = (target - pos) / spd
+            if t > last_time:     # new fleet forms
+                fleets += 1
+                last_time = t     # update last fleet's arrival time
+            # else: merges into the last fleet → do nothing
+
+        return fleets
