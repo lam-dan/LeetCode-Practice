@@ -4,41 +4,35 @@ class Solution(object):
         :type grid: List[List[int]]
         :rtype: int
         """
-        rows = len(grid)
-        cols = len(grid[0])
-        self.count = 0
+        if not grid or not grid[0]:
+            return 0
 
-        def dfs(r,c):
+        rows, cols = len(grid), len(grid[0])
+        visited = set()
+
+        def dfs(r, c):
             if (
                 r < 0 or
                 c < 0 or
-                r >= rows or
+                r >= rows or 
                 c >= cols or
-                grid[r][c] == 0
-            ):
-                return
-            grid[r][c] = 0
-            self.count += 1
-            dfs(r + 1, c) 
-            dfs(r - 1,c)  
-            dfs(r,c + 1) 
-            dfs(r,c - 1)
+                grid[r][c] == 0 or
+                (r,c) in visited
+             ):
+                return 0
 
+            visited.add((r,c))
+
+            return (1 + 
+                dfs(r + 1, c) +
+                dfs(r - 1, c) +
+                dfs(r, c + 1) +
+                dfs(r, c - 1))
+    
         max_area = 0
         for r in range(rows):
             for c in range(cols):
-                self.count = 0
-                if grid[r][c] == 1:
-                    dfs(r, c)
-                    max_area = max(max_area, self.count)
+                if grid[r][c] == 1 and (r,c) not in visited:
+                    max_area = max(max_area, dfs(r,c))
+                
         return max_area
-        
-        
-
-
-
-
-
-
-        
-
