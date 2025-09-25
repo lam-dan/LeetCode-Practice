@@ -6,6 +6,6 @@ class Solution:
 
         for num in nums:
             prefix_sum += num
-            max_subarray = max(max_subarray, prefix_sum - min_prefix)
             min_prefix = min(min_prefix, prefix_sum)
+            max_subarray = max(max_subarray, prefix_sum - min_prefix)
         return max_subarray
