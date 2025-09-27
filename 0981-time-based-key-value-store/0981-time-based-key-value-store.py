@@ -31,7 +31,7 @@ class TimeMap:
         if left == 0:
             return ""
         else:
-            return self.key_time_map[key][left - 1][1]
+            return self.key_time_map[key][right][1]
 
 # Your TimeMap object will be instantiated and called as such:
 # obj = TimeMap()
