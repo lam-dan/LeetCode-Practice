@@ -11,3 +11,10 @@ var map = function(arr, fn) {
     }
     return newArray
 };
+
+
+function plusOne(n) {
+    return n + 1
+}
+
+map([1,2,3], plusOne)
