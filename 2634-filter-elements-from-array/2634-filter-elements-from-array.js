@@ -4,9 +4,8 @@
  * @return {number[]}
  */
 var filter = function(arr, fn) {
-    let result = new Array(26)
+    let result = Array.from({length:arr.length})
     let size = 0
-
     for (let i = 0; i < arr.length; i++) {
         if (fn(arr[i], i)) {
             result[size] = arr[i]
