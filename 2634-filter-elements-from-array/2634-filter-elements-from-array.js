@@ -4,11 +4,17 @@
  * @return {number[]}
  */
 var filter = function(arr, fn) {
-    let result = []
+    let result = new Array(26)
+    let size = 0
+
     for (let i = 0; i < arr.length; i++) {
         if (fn(arr[i], i)) {
-            result = [...result, arr[i]]
+            result[size] = arr[i]
+            size++
         }
+    }
+    while (size < result.length) {
+        result.pop()
     }
     return result
 };
