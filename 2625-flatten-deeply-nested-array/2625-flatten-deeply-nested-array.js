@@ -12,7 +12,7 @@ var flat = function (arr, n) {
     for (let i = 0; i < arr.length; i++) {
         const obj = arr[i]
         if (Array.isArray(obj)){
-            result.push(...flat(obj, n - 1))
+            result.push(...flat(obj, n - 1)) // This is very slow, however, an addition O(n) per recursive call
         } else {
             result.push(arr[i])
         }
