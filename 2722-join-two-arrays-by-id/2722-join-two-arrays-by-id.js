@@ -21,5 +21,5 @@ var join = function(arr1, arr2) {
             newMap.set(obj.id, merged)
         }
     }
-    return Array.from(newMap.values())
+    return Object.values(Object.fromEntries(newMap))
 };
