@@ -4,18 +4,15 @@
  * @return {Array}
  */
 var flat = function (arr, n) {
-    // Base Case
-    let result = []
-    function dfs(arr, n) {
-        for (let i = 0; i < arr.length; i++) {
-            const obj = arr[i]
-            if (Array.isArray(obj) && n > 0){
-                dfs(obj, n - 1)
-            } else {
-                result.push(obj)
-            }
+    if (n === 0) return arr
+    let res = [];
+    for (const ele of arr) {
+        if (Array.isArray(ele)) {
+            res.push(...flat(ele, n-1))
+        }
+        else {
+            res.push(ele)
         }
     }
-    dfs(arr, n)
-    return result
+    return res
 };
