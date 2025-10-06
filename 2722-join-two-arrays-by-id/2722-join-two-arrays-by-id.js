@@ -18,7 +18,8 @@ var join = function(arr1, arr2) {
             // Grab previous object
 
             const prevObj = newMap.get(obj.id)
-            const merged = structuredClone({...prevObj, ...obj})
+            // const merged = structuredClone({...prevObj, ...obj})
+            const merged = Object.assign(prevObj, obj)
             newMap.set(obj.id, merged)
         }
     }
