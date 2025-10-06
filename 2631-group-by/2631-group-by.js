@@ -3,20 +3,20 @@
  * @return {Object}
  */
 Array.prototype.groupBy = function(fn) {
-    let groupMap = new Map()
+    let groupMap = {}
     if (this.length === 0){
         return {}
     }
     for (let i = 0; i < this.length; i++) {
         const obj = this[i]
-        const id = fn(this[i])
-        if (groupMap.has(id)){
-            groupMap.set(id, [...groupMap.get(id), obj])
+        const id = fn(obj)
+        if (Object.hasOwn(groupMap, id)){
+            groupMap[id].push(obj)
         } else {
-            groupMap.set(id, [obj])
+            groupMap[id] = [obj]
         }
     }
-    return Object.fromEntries(groupMap)
+    return groupMap
 };
 
 /**
