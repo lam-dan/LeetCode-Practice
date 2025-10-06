@@ -8,7 +8,7 @@ var chunk = function(arr, size) {
     let result = []
 
     for (let i = 0; i < arr.length; i++) {
-        if (result.length === size){
+        if (result.length >= size){
             final.push(result)
             result = []
         }
