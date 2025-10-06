@@ -4,18 +4,22 @@
  * @return {Array}
  */
 var flat = function (arr, n) {
-    // Base Case
-    if (n === 0) {
-        return arr
+    // Array map only seeds from left to right, so seed from right to left instead to preserve ordering
+    let stack = []
+    for (let i = arr.length - 1; i >= 0; i--) {
+        stack.push([arr[i], n])
     }
-    let result = []
-    for (let i = 0; i < arr.length; i++) {
-        const obj = arr[i]
-        if (Array.isArray(obj)){
-            result.push(...flat(obj, n - 1)) // This is very slow, however, an addition O(n) per recursive call
+    const res = []
+
+    while (stack.length > 0) {
+        const [obj, depth] = stack.pop()
+        if (Array.isArray(obj) && depth > 0) {
+            for(let i = obj.length - 1; i >= 0; i--) {
+                stack.push([obj[i], depth - 1])
+            }
         } else {
-            result.push(arr[i])
+            res.push(obj)
         }
     }
-    return result
+    return res
 };
