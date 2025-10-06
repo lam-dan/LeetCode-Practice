@@ -16,13 +16,11 @@ var join = function(arr1, arr2) {
             // Merging Logic
             // Any mapping keys in our object have to be override by the current obj
             // Grab previous object
-
             const prevObj = newMap.get(obj.id)
-            // const merged = structuredClone({...prevObj, ...obj})
-            const merged = Object.assign(prevObj, obj)
+            const merged = structuredClone({...prevObj, ...obj}) // Deep copy solution trade-off is an addition O(n)
+            // const merged = Object.assign(prevObj, obj) // Shallow copy
             newMap.set(obj.id, merged)
         }
     }
-
     return Object.values(Object.fromEntries(newMap))
 };
