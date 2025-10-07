@@ -3,43 +3,41 @@
  * @return {Object|Array}
  */
 var compactObject = function(obj) {
-  // If it's not an object (primitive), return directly
-  if (obj === null || typeof obj !== "object") return obj;
-
-  // Root type
-  const result = Array.isArray(obj) ? [] : {};
-  const stack = [{ source: obj, target: result }];
-
-  while (stack.length > 0) {
-    const { source, target } = stack.pop();
-
-    if (Array.isArray(source)) {
-      for (const value of source) {
-        if (Boolean(value)) {
-          if (typeof value === "object" && value !== null) {
-            const newTarget = Array.isArray(value) ? [] : {};
-            target.push(newTarget);
-            stack.push({ source: value, target: newTarget });
-          } else {
-            target.push(value);
-          }
-        }
-      }
-    } else {
-      for (const [key, value] of Object.entries(source)) {
-        if (Boolean(value)) {
-          if (typeof value === "object" && value !== null) {
-            const newTarget = Array.isArray(value) ? [] : {};
-            target[key] = newTarget;
-            stack.push({ source: value, target: newTarget });
-          } else {
-            target[key] = value;
-          }
-        }
-      }
+    if (obj === null || typeof obj !== "object") { // has to be an array or object, otherwise we return primitives
+        return obj
     }
-  }
+    const root = Array.isArray(obj) ? [] : {}
+    const stack = [[obj, root]]
 
-  return result;
-    
+    console.log("stack", stack)
+
+    while (stack.length > 0) {
+        const [currObj, newCurrObj] = stack.pop()
+
+        if(Array.isArray(currObj)) { // Case 1: Current Layer is an array
+            for (const val of currObj) {
+                if (!val) continue;// Skip falsy values: false, 0, "", null, undefined, NaN
+                if (typeof val !== "object") {  // Not an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
+                    newCurrObj.push(val) // Push into array the primitive (ie, number, string, boolean, undefined, symbol, bigInt)
+                } else { //Otherwise it's a an object
+                    const newSubObj = Array.isArray(val) ? [] : {} // Figure out what object
+                    newCurrObj.push(newSubObj)
+                    stack.push([val, newSubObj])
+                }
+            }
+        } else { // Case 1: Current Layer is an object
+            for (const [key, val] of Object.entries(currObj)) {
+                if (!val) continue // Skip falsy values: false, 0, "", null, undefined, NaN
+                if (typeof val !== "object") {  // Not an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
+                    newCurrObj[key] = val
+                } else { //Otherwise if it's another object we need to handle
+                    const newSubObj = Array.isArray(val) ? [] : {} // Figure out what object
+                    newCurrObj[key] = newSubObj
+                    stack.push([val, newSubObj])
+                }
+            }
+
+        }
+    }
+    return root
 };
