@@ -16,11 +16,11 @@ var compactObject = function(obj) {
             for (const val of currObj) {
                 if (!val) {
                     continue;// Skip falsy values: false, 0, "", null, undefined, NaN
-                } else if (typeof val === "object") {  // Not an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
+                } else if (typeof val === "object") {  // is it an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
                     const newSubObj = Array.isArray(val) ? [] : {} // Figure out what object
                     newCurrObj.push(newSubObj)
                     stack.push([val, newSubObj])
-                } else { //Otherwise it's a an object
+                } else { //Otherwise it's a primitive
                     newCurrObj.push(val) // Push into array the primitive (ie, number, string, boolean, undefined, symbol, bigInt)
                 }
             }
@@ -31,8 +31,8 @@ var compactObject = function(obj) {
                     //Otherwise if it's another object we need to handle
                 } else if (typeof val === "object") { // Is it an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
                     const newSubObj = Array.isArray(val) ? [] : {} // Figure out what object
-                    newCurrObj[key] = newSubObj
-                    stack.push([val, newSubObj])
+                    newCurrObj[key] = newSubObj // attach child references to the parent
+                    stack.push([val, newSubObj]) // push child into the queue for processing
                 } else { // Otherwise it's a primitive value
                     newCurrObj[key] = val
                 }
