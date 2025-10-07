@@ -16,24 +16,24 @@ var compactObject = function(obj) {
             for (const val of currObj) {
                 if (!val) {
                     continue;// Skip falsy values: false, 0, "", null, undefined, NaN
-                } else if (typeof val !== "object") {  // Not an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
-                    newCurrObj.push(val) // Push into array the primitive (ie, number, string, boolean, undefined, symbol, bigInt)
-                } else { //Otherwise it's a an object
+                } else if (typeof val === "object") {  // Not an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
                     const newSubObj = Array.isArray(val) ? [] : {} // Figure out what object
                     newCurrObj.push(newSubObj)
                     stack.push([val, newSubObj])
+                } else { //Otherwise it's a an object
+                    newCurrObj.push(val) // Push into array the primitive (ie, number, string, boolean, undefined, symbol, bigInt)
                 }
             }
         } else { // Case 1: Current Layer is an object
             for (const [key, val] of Object.entries(currObj)) {
                 if (!val) {
                     continue // Skip falsy values: false, 0, "", null, undefined, NaN
-                } else if (typeof val === "object") {  // Not an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
+                    //Otherwise if it's another object we need to handle
+                } else if (typeof val === "object") { // Is it an object (plain objects, arrays, functions, special objects(Date, RegExp, Map, Set. etc))
                     const newSubObj = Array.isArray(val) ? [] : {} // Figure out what object
                     newCurrObj[key] = newSubObj
                     stack.push([val, newSubObj])
-                    
-                } else { //Otherwise if it's another object we need to handle
+                } else { // Otherwise it's a primitive value
                     newCurrObj[key] = val
                 }
             }
