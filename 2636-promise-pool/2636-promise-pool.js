@@ -4,17 +4,33 @@
  * @return {Promise<any>}
  */
 var promisePool = async function(functions, n) {
-  let i = 0; // shared cursor
+  // Shared cursor: points to the next function to start
+  // It's shared among all workers, so they pull tasks sequentially.
+  let i = 0;
 
+  /**
+   * A "worker" represents one concurrent slot in the pool.
+   * It continuously grabs the next available function (if any)
+   * and executes it. When no functions remain, it exits.
+   */
   async function worker() {
+    // Keep looping until we've started all available functions
     while (i < functions.length) {
-      const idx = i++;
-      await functions[idx]();
+      const idx = i++;          // Claim the next function index
+      await functions[idx]();   // Run that function and wait for it to finish
+      // Once done, the loop continues — the worker picks the next pending function
     }
+    // When i >= functions.length, this worker simply finishes.
   }
 
+  // Determine how many workers to start — can't exceed the number of functions
   const k = Math.min(n, functions.length);
-  await Promise.all(Array(k).fill(0).map(() => worker()));
+
+  // Create and start k workers. Each worker runs independently.
+  const workers = Array(k).fill(0).map(() => worker());
+
+  // Wait until all workers complete — meaning all functions have resolved
+  await Promise.all(workers);
 };
 
 /**
