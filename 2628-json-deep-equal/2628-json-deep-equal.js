@@ -34,17 +34,17 @@ var areDeeplyEqual = function(o1, o2) {
   if (typeof o1 === "object" && typeof o2 === "object") {
     const o1Entries = Object.entries(o1)
     const o2Entries = Object.entries(o2)
-
+    // Check if the object's properties have the same lengths
     if (o1Entries.length !== o2Entries.length) {
         return false;
     }
     for (const [key, value] of o1Entries) {
-        // Check if keys are not equal
+        // Edge Case: Keys are out of order but exist in the other object
+        // Thus, we need to check if one object doesn't have the other object's keys
         if (!Object.hasOwn(o2, key)) {
             return false;
         } else {
-            // If the keys are equal then
-            // Check if values are not equal
+            // If the keys are equal then, check if values are not equal
             if (!areDeeplyEqual(value, o2[key])) {
                 return false;
             }
