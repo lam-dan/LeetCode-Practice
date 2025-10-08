@@ -9,9 +9,8 @@ var areDeeplyEqual = function(o1, o2) {
 
   // Handle null and undefined
   if (o1 === null || o2 === null || o1 === undefined || o2 === undefined) return false;
-
-  // Handles if one of the objects is not an object
-  if (typeof o1 !== "object" || typeof o2 !== "object") return false; // Handles undefined
+  // Handles if one of the objects is undefined, but not null (javascript bug)
+  if (typeof o1 !== "object" || typeof o2 !== "object") return false; 
 
   const a1 = Array.isArray(o1), a2 = Array.isArray(o2);
   if (a1 !== a2) return false;
