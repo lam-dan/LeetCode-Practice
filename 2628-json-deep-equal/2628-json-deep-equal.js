@@ -5,7 +5,7 @@
  */
 var areDeeplyEqual = function(o1, o2) {
     // Hanle Strict Equalness Early on
-  if (o1 === o2) return true;
+//   if (o1 === o2) return true;
   if (Number.isNaN(o1) && Number.isNaN(o2)) return true; // Handles cases where both are NaN
 
   // Handle null and undefined
