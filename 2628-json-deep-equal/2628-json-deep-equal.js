@@ -26,13 +26,15 @@ var areDeeplyEqual = function(o1, o2) {
     }
     return true;
   }
-
   // Case 1: Check if both are Objects
   if (typeof o1 === "object" && typeof o2 === "object") {
-    if (Object.keys(o1).length !== Object.keys(o2).length) {
+    let o1Entries = Object.entries(o1)
+    let o2Entries = Object.entries(o2)
+
+    if (o1Entries.length !== o2Entries.length) {
         return false;
     }
-    for (const [key, value] of Object.entries(o1)) {
+    for (const [key, value] of o1Entries) {
         // Check if keys are not equal
         if (!Object.hasOwn(o2, key)) {
             return false;
@@ -43,8 +45,5 @@ var areDeeplyEqual = function(o1, o2) {
         }
     }
   }
-
-
-
   return true;
 };
