@@ -10,11 +10,13 @@ var areDeeplyEqual = function(o1, o2) {
   // Handle null and undefined
   if (o1 === null || o2 === null || o1 === undefined || o2 === undefined) return false;
   // Handles if one of the objects is undefined, but not null (javascript bug)
-  if (typeof o1 !== "object" || typeof o2 !== "object") return false; 
+  if (typeof o1 !== "object" || typeof o2 !== "object") {
+    return false; 
+  }
 
-//   if (Array.isArray(o1) !== Array.isArray(o2)) {
-//     return false;
-//   } 
+  if (Array.isArray(o1) !== Array.isArray(o2)) {
+    return false;
+  } 
 
   if (Array.isArray(o1) && Array.isArray(o2)) {
     if (o1.length !== o2.length) {
@@ -29,8 +31,8 @@ var areDeeplyEqual = function(o1, o2) {
   }
   // Case 1: Check if both are Objects
   if (typeof o1 === "object" && typeof o2 === "object") {
-    let o1Entries = Object.entries(o1)
-    let o2Entries = Object.entries(o2)
+    const o1Entries = Object.entries(o1)
+    const o2Entries = Object.entries(o2)
 
     if (o1Entries.length !== o2Entries.length) {
         return false;
