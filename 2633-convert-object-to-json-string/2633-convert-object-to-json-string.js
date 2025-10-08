@@ -13,8 +13,8 @@ var jsonStringify = function(object) {
 
     // Handle Falsies
     if (object === null) return "null" 
-    if (object === undefined) return undefined
-    if (Number.isNaN(object)) return NaN
+    if (object === undefined) return "undefined"
+    if (Number.isNaN(object)) return "NaN"
 
     // Handle Primitives - Strings, Booleans, Numbers
     if (typeof object === "boolean") return object
