@@ -7,8 +7,10 @@ var areDeeplyEqual = function(o1, o2) {
     // Hanle Strict Equalness Early on
   if (o1 === o2) return true;
 
-  // Handle null and non-objects early
-  if (o1 === null || o2 === null || o1 === undefined || o2 === undefined) return false;
+  // Handle null and undefined
+//   if (o1 === null || o2 === null || o1 === undefined || o2 === undefined) return false;
+
+  // Handles if one of the objects is not an object
   if (typeof o1 !== "object" || typeof o2 !== "object") return false; // Handles undefined
 
   const a1 = Array.isArray(o1), a2 = Array.isArray(o2);
