@@ -5,8 +5,8 @@
  */
 var areDeeplyEqual = function(o1, o2) {
     // Hanle Strict Equalness Early on
-//   if (o1 === o2) return true;
-  if (Object.is(o1,o2)) return true
+  if (o1 === o2) return true;
+//   if (Object.is(o1,o2)) return true
 
   // Handle null and undefined
   if (o1 === null || o2 === null || o1 === undefined || o2 === undefined) return false;
