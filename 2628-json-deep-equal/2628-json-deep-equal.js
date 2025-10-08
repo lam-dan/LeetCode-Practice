@@ -23,9 +23,11 @@ var areDeeplyEqual = function(o1, o2) {
 
   // plain objects
   if (typeof o1 === "object" && typeof o2 === "object") {
-    if (Object.keys(o1).length !== Object.keys(o2).length) return false;
+    if (Object.keys(o1).length !== Object.keys(o2).length) {
+        return false;
+    }
     for (const [key, value] of Object.entries(o1)) {
-        if (!Object.prototype.hasOwnProperty.call(o2, key)) return false;
+        if (!Object.hasOwn(o2, key)) return false;
         if (!areDeeplyEqual(value, o2[key])) return false;
     }
   }
