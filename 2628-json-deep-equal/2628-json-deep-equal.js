@@ -27,8 +27,12 @@ var areDeeplyEqual = function(o1, o2) {
         return false;
     }
     for (const [key, value] of Object.entries(o1)) {
-        if (!Object.hasOwn(o2, key)) return false;
-        if (!areDeeplyEqual(value, o2[key])) return false;
+        if (!Object.hasOwn(o2, key)) {
+            return false;
+        }
+        if (!areDeeplyEqual(value, o2[key])) {
+            return false;
+        }
     }
   }
 
