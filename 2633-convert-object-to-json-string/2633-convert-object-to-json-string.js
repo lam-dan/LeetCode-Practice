@@ -12,19 +12,19 @@ var jsonStringify = function(object) {
     // NaN - check
 
     // Handle Falsies
-    if (object === null) return "null" 
-    if (object === undefined) return "undefined"
-    if (Number.isNaN(object)) return "NaN"
+    if (object === null) return String(object)
+    if (object === undefined) return String(object)
+    if (Number.isNaN(object)) return String(object)
 
     // Handle Primitives - Strings, Booleans, Numbers
     if (typeof object === "boolean") {
         return object ? "true" : "false"
     } 
-
     if (typeof object === "string") {
         // console.log("String", object)
         return `"${object}"`; // handles strings
     }
+    // 
     if (typeof object !== "object") { 
         // console.log("handle primitives", object)
         return String(object)
