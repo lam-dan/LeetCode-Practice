@@ -21,8 +21,9 @@ var jsonStringify = function(object) {
         return String(object)
     } 
     if (typeof object === "string") {
-        // console.log("String", object)
+        console.log("String", object)
         return `"${object}"`; // handles strings
+
     }
     // 
     if (typeof object !== "object") { 
