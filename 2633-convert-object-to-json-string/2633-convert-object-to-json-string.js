@@ -22,7 +22,10 @@ var jsonStringify = function(object) {
     } 
     if (typeof object === "string") {
         console.log("String", object)
-        return `"${object}"`; // handles strings
+        // return `"${object}"`; // handles strings
+        // String("str") conversion returns just str
+        //
+        return `"${String(object)}"`
 
     }
     // 
