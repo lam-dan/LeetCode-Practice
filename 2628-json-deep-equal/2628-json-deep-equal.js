@@ -9,7 +9,7 @@ var areDeeplyEqual = function(o1, o2) {
     // Base cases
     if (o1 === o2) return true
     if (typeof o1 !== "object" || typeof o2 !== "object") return false
-    if (o1 === null || o2 === null) return false
+
     if (String(o1) !== String(o2)) return false
 
     if (Array.isArray(o1) && Array.isArray(o2)) {
