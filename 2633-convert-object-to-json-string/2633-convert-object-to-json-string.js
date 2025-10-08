@@ -12,6 +12,9 @@ var jsonStringify = function(object) {
     // NaN - check
 
     // Handle Falsies
+    // Convert all the objects into Strings with double quotes
+    // "null", "undefined", "1" will all convert to null, undefined, and 1 since we 
+    // are using template literals.
     if (object === null) return String(object)
     if (object === undefined) return String(object)
     if (Number.isNaN(object)) return String(object)
@@ -20,15 +23,15 @@ var jsonStringify = function(object) {
     if (typeof object === "boolean") {
         return String(object)
     } 
+    // Handle Edge case where String conversion of a string "str" => str
+    // this will break test cases where double quotes are expected of a string.
     if (typeof object === "string") {
         console.log("String", object)
         // return `"${object}"`; // handles strings
         // String("str") conversion returns just str
-        //
         return `"${String(object)}"`
 
     }
-    // 
     if (typeof object !== "object") { 
         // console.log("handle primitives", object)
         return String(object)
