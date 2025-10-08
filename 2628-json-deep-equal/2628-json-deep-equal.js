@@ -42,7 +42,7 @@ var areDeeplyEqual = function(o1, o2) {
         if (!Object.hasOwn(o2, key)) {
             return false;
         } else {
-            // At this point we know the keys are equal
+            // If the keys are equal then
             // Check if values are not equal
             if (!areDeeplyEqual(value, o2[key])) {
                 return false;
