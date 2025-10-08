@@ -4,11 +4,12 @@
  * @return {boolean}
  */
 var areDeeplyEqual = function(o1, o2) {
+    // Hanle Strict Equalness Early on
   if (o1 === o2) return true;
 
   // Handle null and non-objects early
-  if (o1 === null || o2 === null) return false;
-  if (typeof o1 !== "object" || typeof o2 !== "object") return false;
+  if (o1 === null || o2 === null || o1 === undefined || o2 === undefined) return false;
+  if (typeof o1 !== "object" || typeof o2 !== "object") return false; // Handles undefined
 
   const a1 = Array.isArray(o1), a2 = Array.isArray(o2);
   if (a1 !== a2) return false;
@@ -21,15 +22,17 @@ var areDeeplyEqual = function(o1, o2) {
     return true;
   }
 
-  // plain objects
+  // Case 1: Check if both are Objects
   if (typeof o1 === "object" && typeof o2 === "object") {
     if (Object.keys(o1).length !== Object.keys(o2).length) {
         return false;
     }
     for (const [key, value] of Object.entries(o1)) {
+        // Check if keys are not equal
         if (!Object.hasOwn(o2, key)) {
             return false;
         }
+        // Check if values are not equal
         if (!areDeeplyEqual(value, o2[key])) {
             return false;
         }
