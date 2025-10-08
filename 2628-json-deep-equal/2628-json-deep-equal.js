@@ -29,6 +29,7 @@ var areDeeplyEqual = function(o1, o2) {
     }
     return true;
   }
+
   // Case 1: Check if both are Objects
   if (typeof o1 === "object" && typeof o2 === "object") {
     const o1Entries = Object.entries(o1)
@@ -49,6 +50,7 @@ var areDeeplyEqual = function(o1, o2) {
             }
         }
     }
+    return true
   }
-  return true;
+  return false;
 };
