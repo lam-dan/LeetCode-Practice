@@ -18,7 +18,7 @@ var jsonStringify = function(object) {
 
     // Handle Primitives - Strings, Booleans, Numbers
     if (typeof object === "boolean") {
-        return object ? "true" : "false"
+        return String(object)
     } 
     if (typeof object === "string") {
         // console.log("String", object)
