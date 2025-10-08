@@ -41,10 +41,12 @@ var areDeeplyEqual = function(o1, o2) {
         // Check if keys are not equal
         if (!Object.hasOwn(o2, key)) {
             return false;
-        }
-        // Check if values are not equal
-        if (!areDeeplyEqual(value, o2[key])) {
-            return false;
+        } else {
+            // At this point we know the keys are equal
+            // Check if values are not equal
+            if (!areDeeplyEqual(value, o2[key])) {
+                return false;
+            }
         }
     }
   }
