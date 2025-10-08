@@ -31,7 +31,7 @@ var areDeeplyEqual = function(o1, o2) {
             return false
         }
         for (const [key, value] of Object.entries(o1)) {
-            if (o2[key]){
+            if (Object.hasOwn(o2, key)){
                 if (!areDeeplyEqual(value, o2[key])) {
                     console.log("world")
                     return false
