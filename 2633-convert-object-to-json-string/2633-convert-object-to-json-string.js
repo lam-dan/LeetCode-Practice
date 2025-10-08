@@ -17,7 +17,10 @@ var jsonStringify = function(object) {
     if (Number.isNaN(object)) return "NaN"
 
     // Handle Primitives - Strings, Booleans, Numbers
-    if (typeof object === "boolean") return object
+    if (typeof object === "boolean") {
+        return object ? "true" : "false"
+    } 
+
     if (typeof object === "string") {
         // console.log("String", object)
         return `"${object}"`; // handles strings
