@@ -3,16 +3,15 @@
  * @return {string}
  */
 var jsonStringify = function(object) {
+    if (object === null) return "null"
     if (object === undefined) return "undefined"
+    if (Number.isNaN(object)) return "NaN"
 
     if (typeof object === "boolean") {
         // console.log("boolean", object)
         return object
     }
 
-
-
-    if (Number.isNaN(object)) return "NaN" // doesn't work because NaN is never equal to itself
     if (object === null) return null
     if (typeof object === "string") {
         // console.log("String", object)
@@ -21,6 +20,10 @@ var jsonStringify = function(object) {
     if (typeof object !== "object") { //handles primitives
         // console.log("handle primitives", object)
         return String(object)
+    }
+    if (Array.isArray(object)){
+        // console.log("Crazy nested conversion", `[${obj.map(convertObjectToString).join(",")}]`)
+        return `[${object.map(jsonStringify).join(",")}]`
     }
     // Base Cases
     // Objects - checked
@@ -54,16 +57,16 @@ var jsonStringify = function(object) {
             return `[${obj.map(convertObjectToString).join(",")}]`
         }
 
-
-        // console.log("object", obj)
-
         const entries = Object.entries(obj).map(([key, value]) => {
             return `"${key}":${convertObjectToString(value)}` // Recursion handles nested objects
         })
         return `{${entries.join(",")}}`
     }
     if (typeof object === "object"){
-        return convertObjectToString(object)
+        const entries = Object.entries(object).map(([key, value]) => {
+            return `"${key}":${jsonStringify(value)}` // Recursion handles nested objects
+        })
+        return `{${entries.join(",")}}`
     }
 
 
