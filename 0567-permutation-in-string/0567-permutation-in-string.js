@@ -16,8 +16,8 @@ var checkInclusion = function(s1, s2) {
 
   // Build counts for s1 and the initial window of s2 (length = s1.length)
   for (let i = 0; i < s1.length; i++) {
-    need[s1.charCodeAt(i) - A]++;
-    win [s2.charCodeAt(i) - A]++;
+    need[s1.charCodeAt(i) - 97]++;
+    win [s2.charCodeAt(i) - 97]++;
   }
 
   // Check initial window
@@ -25,8 +25,8 @@ var checkInclusion = function(s1, s2) {
 
   // Slide the fixed-size window across s2
   for (let l = 0, r = s1.length; r < s2.length; r++, l++) {
-    win[s2.charCodeAt(r) - A]++; // add right char
-    win[s2.charCodeAt(l) - A]--; // remove left char
+    win[s2.charCodeAt(r) - 97]++; // add right char
+    win[s2.charCodeAt(l) - 97]--; // remove left char
     if (equalBuckets(need, win)) return true;
   }
   return false;
