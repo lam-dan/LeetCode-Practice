@@ -11,31 +11,31 @@ var checkInclusion = function(s1, s2) {
   if (s1.length > s2.length) return false;
 
   const A = 'a'.charCodeAt(0);
-  const need = new Array(26).fill(0); // counts for s1
-  const win  = new Array(26).fill(0); // counts for current window in s2
+  const s1Count = new Array(26).fill(0); // counts for s1
+  const s2Count  = new Array(26).fill(0); // counts for current window in s2
 
   // Build counts for s1 and the initial window of s2 (length = s1.length)
   for (let i = 0; i < s1.length; i++) {
-    need[s1.charCodeAt(i) - 97]++;
-    win [s2.charCodeAt(i) - 97]++;
+    s1Count[s1.charCodeAt(i) - A]++;
+    s2Count[s2.charCodeAt(i) - A]++;
   }
 
   // Check initial window
-  if (equalBuckets(need, win)) return true;
+  if (equalBuckets(s1Count, s2Count)) return true;
 
   // Slide the fixed-size window across s2
   for (let l = 0, r = s1.length; r < s2.length; r++, l++) {
-    win[s2.charCodeAt(r) - 97]++; // add right char
-    win[s2.charCodeAt(l) - 97]--; // remove left char
-    if (equalBuckets(need, win)) return true;
+    s2Count[s2.charCodeAt(r) - A]++; // add right char
+    s2Count[s2.charCodeAt(l) - A]--; // remove left char
+    if (equalBuckets(s1Count, s2Count)) return true;
   }
   return false;
 };
 
 // Helper: do all 26 buckets match?
-const equalBuckets = (need, win) => {
+const equalBuckets = (s1Count, s2Count) => {
   for (let i = 0; i < 26; i++) {
-    if (need[i] !== win[i]) return false;
+    if (s1Count[i] !== s2Count[i]) return false;
   }
   return true;
 }
