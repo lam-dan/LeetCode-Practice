@@ -10,14 +10,13 @@ var checkInclusion = function(s1, s2) {
   // Early exit: s1 can't fit into s2
   if (s1.length > s2.length) return false;
 
-  const A = 'a'.charCodeAt(0);
   const s1Count = new Array(26).fill(0); // counts for s1
   const s2Count  = new Array(26).fill(0); // counts for current window in s2
 
   // Build counts for s1 and the initial window of s2 (length = s1.length)
   for (let i = 0; i < s1.length; i++) {
-    s1Count[s1.charCodeAt(i) - A]++;
-    s2Count[s2.charCodeAt(i) - A]++;
+    s1Count[s1.charCodeAt(i) - 97]++;
+    s2Count[s2.charCodeAt(i) - 97]++;
   }
 
   // Check initial window
