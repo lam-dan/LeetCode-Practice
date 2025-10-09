@@ -29,12 +29,11 @@ var checkInclusion = function(s1, s2) {
     win[s2.charCodeAt(l) - A]--; // remove left char
     if (equalBuckets(need, win)) return true;
   }
-
   return false;
 };
 
 // Helper: do all 26 buckets match?
-function equalBuckets(need, win) {
+const equalBuckets = (need, win) => {
   for (let i = 0; i < 26; i++) {
     if (need[i] !== win[i]) return false;
   }
