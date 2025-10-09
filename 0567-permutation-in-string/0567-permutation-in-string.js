@@ -24,8 +24,8 @@ var checkInclusion = function(s1, s2) {
 
   // Slide the fixed-size window across s2
   for (let l = 0, r = s1.length; r < s2.length; r++, l++) {
-    s2Count[s2.charCodeAt(r) - A]++; // add right char
-    s2Count[s2.charCodeAt(l) - A]--; // remove left char
+    s2Count[s2.charCodeAt(r) - 97]++; // add right char
+    s2Count[s2.charCodeAt(l) - 97]--; // remove left char
     if (equalBuckets(s1Count, s2Count)) return true;
   }
   return false;
