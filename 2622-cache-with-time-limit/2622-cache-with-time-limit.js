@@ -1,5 +1,5 @@
 var TimeLimitedCache = function() {
-    this.cache = new Map() // Store value: timer in our map
+    this.cache = new Map()
 };
 
 /** 
@@ -9,16 +9,14 @@ var TimeLimitedCache = function() {
  * @return {boolean} if un-expired key already existed
  */
 TimeLimitedCache.prototype.set = function(key, value, duration) {
-    // user timer 
-    let valueInCache;
-    if (this.cache.has(key)) {
-        const { value, timeout } = this.cache.get(key)
-        valueInCache = value
-        clearTimeout(timeout)
-    }
-    const timeout = setTimeout(() => this.cache.delete(key), duration)
-    this.cache.set(key, {value, timeout})
-    return Boolean(valueInCache)
+    return new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => reject("Out of Time"), duration)
+        if (key in this.cache) {
+            return resolve(this.cache[key])
+        } else {
+            reject("No Key")
+        }
+    })
 };
 
 /** 
@@ -26,8 +24,8 @@ TimeLimitedCache.prototype.set = function(key, value, duration) {
  * @return {number} value associated with key
  */
 TimeLimitedCache.prototype.get = function(key) {
-    if (this.cache.has(key)) {
-        return this.cache.get(key).value 
+    if (key in this.cache){
+        return this.cache[key]
     } else {
         return -1
     }
