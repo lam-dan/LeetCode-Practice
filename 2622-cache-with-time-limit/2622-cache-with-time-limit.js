@@ -2,6 +2,9 @@ var TimeLimitedCache = function() {
     this.cache = new Map()
 };
 
+// set(key, value, duration): accepts an integer key, an integer value, and a duration in milliseconds. 
+// Once the duration has elapsed, the key should be inaccessible. The method should return true if the same un-expired key already exists and false otherwise. Both the value and duration should be overwritten if the key already exists.
+
 /** 
  * @param {number} key
  * @param {number} value
@@ -9,14 +12,13 @@ var TimeLimitedCache = function() {
  * @return {boolean} if un-expired key already existed
  */
 TimeLimitedCache.prototype.set = function(key, value, duration) {
-    return new Promise((resolve, reject) => {
-        const timeout = setTimeout(() => reject("Out of Time"), duration)
-        if (key in this.cache) {
-            return resolve(this.cache[key])
-        } else {
-            reject("No Key")
-        }
-    })
+    const valueInCache = this.cache.get(key);
+    if (valueInCache) {
+      clearTimeout(valueInCache.timeout);
+    }
+    const timeout = setTimeout(() => this.cache.delete(key), duration);
+    this.cache.set(key, { value, timeout });
+    return Boolean(valueInCache);
 };
 
 /** 
@@ -24,8 +26,8 @@ TimeLimitedCache.prototype.set = function(key, value, duration) {
  * @return {number} value associated with key
  */
 TimeLimitedCache.prototype.get = function(key) {
-    if (key in this.cache){
-        return this.cache[key]
+    if (this.cache.has(key)){
+        return this.cache.get(key).value
     } else {
         return -1
     }
@@ -36,6 +38,7 @@ TimeLimitedCache.prototype.get = function(key) {
  */
 TimeLimitedCache.prototype.count = function() {
     return this.cache.size
+    
 };
 
 /**
