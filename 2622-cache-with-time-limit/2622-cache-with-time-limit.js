@@ -14,7 +14,11 @@ class TimeLimitedCache {
   }
 
   get(key) {
-    return this.cache.has(key) ? this.cache.get(key).value : -1;
+    if (this.cache.has(key)) {
+        return this.cache.get(key).value
+    } else {
+        return -1
+    }
   }
 
   count() {
