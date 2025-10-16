@@ -2,40 +2,34 @@ class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         rows = len(board)
         cols = len(board[0])
-        path = set()
 
-        def dfs(i,j,k):
-            if k == len(word):
+
+        def dfs(i, j, c):
+            if len(word) == c:
                 return True
-            # Base Cases
-            if ( 
-                i < 0 or
+            if(
+                i < 0 or 
                 j < 0 or
                 i >= rows or
                 j >= cols or
-                board[i][j] != word[k] or
-                (i, j) in path
+                board[i][j] != word[c] or
+                board[i][j] == "#"
             ):
                 return False
-            #Adding it to the path
-            path.add((i,j))
 
-            #Recursive Calls
-            # All directions up, down, left, right
+            board[i][j] = "#"
+
             res = (
-                dfs(i + 1, j, k + 1) or 
-                dfs(i, j + 1, k + 1) or
-                dfs(i - 1, j, k + 1) or
-                dfs(i, j - 1, k + 1)
+                dfs(i + 1,j, c + 1) or
+                dfs(i - 1,j, c + 1) or
+                dfs(i,j + 1, c + 1) or
+                dfs(i,j - 1, c + 1)
             )
-            # Remove the path from our path
-            # Backtracking
-            path.remove((i,j))
-
+            board[i][j] = word[c]
             return res
 
         for i in range(rows):
             for j in range(cols):
-                if dfs(i,j,0):
+                if dfs(i, j, 0):
                     return True
         return False
