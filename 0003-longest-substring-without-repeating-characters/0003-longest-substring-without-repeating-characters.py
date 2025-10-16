@@ -9,9 +9,9 @@ class Solution:
         left = 0
 
         for i in range(len(s)):
-            while s[i] in uniques:
-                uniques.remove(s[left])
-                left += 1
+            while s[i] in uniques: # Window break condition
+                uniques.remove(s[left]) # Remove from set
+                left += 1 # Slide window
             uniques.add(s[i])
             length = max(length, len(uniques))
         return length
