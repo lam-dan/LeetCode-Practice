@@ -1,25 +1,21 @@
 class Node:
-    def __init__(self, key: int, value: int):
-        self.key = key
+    def __init__(self, value, key):
         self.value = value
+        self.key = key
         self.next = None
         self.prev = None
 
 class LRUCache:
-    def __init__(self, capacity: int):
-        self.cache = {}
+    def __init__(self, capacity):
         self.capacity = capacity
+        self.map = {}
         self.head = Node(None, None)
         self.tail = Node(None, None)
         self.head.next = self.tail
         self.tail.prev = self.head
+        self.tail.next = None
+        self.head.prev = None
 
-    def delete(self, node):
-        prev_node = node.prev
-        next_node = node.next
-        prev_node.next = node.next
-        next_node.prev = node.prev
-    
     def move_to_front(self, node):
         tmp = self.head.next
         self.head.next = node
@@ -27,45 +23,48 @@ class LRUCache:
         node.prev = self.head
         tmp.prev = node
 
-    def get(self, key: int) -> int:
-        if key in self.cache:
-            node = self.cache[key]
+    def delete(self, node):
+        next_node = node.next
+        prev_node = node.prev
+        prev_node.next = next_node
+        next_node.prev = prev_node
+
+    def get(self, key):
+        if key in self.map:
+            node = self.map[key]
             self.delete(node)
             self.move_to_front(node)
             return node.value
         else:
             return -1
-        
-    def put(self, key: int, value: int) -> None:
-        if key in self.cache:
-            node = self.cache[key]
-            node.value = value
+
+    def put(self, key, value):
+        # If key doesn't exists
+        if key not in self.map:
+
+            if len(self.map) >= self.capacity:
+                # Start LRU eviction process 
+                prev_node = self.tail.prev
+                self.delete(prev_node)
+                del self.map[prev_node.key]
+                node = Node(value, key)
+                self.move_to_front(node)
+                self.map[key] = node
+            else:
+                # Create node and link to our doubly linked list
+                node = Node(value, key)
+                self.move_to_front(node)
+                # Add to our dictionary
+                self.map[key] = node
+
+        elif key in self.map:  # If key does exists
+            # Grab the node 
+            node = self.map[key]
             self.delete(node)
-            self.move_to_front(node)
-            self.cache[key] = node
-        else:
-            # To add key-value pair to the cache
-            # Need to check capacity first
-            if len(self.cache) >= self.capacity:
-                #Evict LRU
-                node = self.tail.prev
-                self.delete(node)
-                del self.cache[node.key]
-            # Add to cache
-            node = Node(key, value)
-            self.move_to_front(node)
-            self.cache[key] = node
+            new_node = Node(value, key)
+            self.move_to_front(new_node)
+            self.map[key] = new_node
+            # Update our linked list and move the node to the front
 
-
-            
-
-
-
-    
-        
-
-
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
+# obj = LRUCache(2)
+# obj.put(1,1,)
