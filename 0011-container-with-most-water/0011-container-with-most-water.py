@@ -4,7 +4,6 @@ class Solution:
         # opposite ends
         # while loop + if/else statement 
         # ++left ++right
-
         left = 0
         right = len(height) - 1
         max_area = float(-inf)
