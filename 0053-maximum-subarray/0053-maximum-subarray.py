@@ -1,11 +1,15 @@
 class Solution:
     def maxSubArray(self, nums):
-        prefix_sum = 0
-        min_prefix = 0
-        max_subarray = float('-inf')
+        curr_sum = 0
+        max_sum = float('-inf')
 
         for num in nums:
-            prefix_sum += num
-            max_subarray = max(max_subarray, prefix_sum - min_prefix)
-            min_prefix = min(min_prefix, prefix_sum)
-        return max_subarray
+            curr_sum += num               # Add current number
+            max_sum = max(max_sum, curr_sum)  # Track best seen so far
+
+            # If the running sum becomes negative, reset to 0
+            # because a negative sum would only hurt any future subarray.
+            if curr_sum < 0:
+                curr_sum = 0
+
+        return max_sum
