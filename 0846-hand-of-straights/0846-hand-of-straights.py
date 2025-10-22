@@ -8,7 +8,7 @@ class Solution:
 
         for i in range(len(hand)):
             num = hand[i]
-            if counter[num]:
+            if counter[num] != 0:
                 for j in range(num, num + groupSize):
                     counter[j] -= 1
                     if counter[j] < 0:
