@@ -7,7 +7,7 @@ class Solution:
         # total = []
         for i in range(len(hand)):
             num = hand[i]
-            if counter[num] != 0:
+            if counter[num] != 0: # We handled the sequence earlier
                 # result = []
                 for j in range(num, num + groupSize):
                     counter[j] -= 1
