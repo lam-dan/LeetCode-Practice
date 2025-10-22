@@ -17,3 +17,6 @@ class Solution:
                 target_triplet.add(2)
 
         return len(target_triplet) == len(target)
+
+        # Time Complexity is O(n)
+        # Space Complexity is O(1) - we store at max 3 triplets so it's constant space
