@@ -20,9 +20,12 @@ class Solution:
             for k in range(num, num + groupSize): # Example: Loop 1 -> 1 + 3 = 4, so loop 1,2,3
                 if k not in counter:
                     return False
+
                 if counter[k] < count:
                     return False
-                counter[k] -= 1
+
+                counter[k] -= count
+                
                 if counter[k] == 0:
                     del counter[k]
         return True
