@@ -2,11 +2,9 @@ class Solution:
     def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
         if len(hand) % groupSize != 0:
             return False
-
         counter = Counter(hand)
         hand.sort()
         # total = []
-
         for i in range(len(hand)):
             num = hand[i]
             if counter[num] != 0:
