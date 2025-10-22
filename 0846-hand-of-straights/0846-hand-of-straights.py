@@ -11,6 +11,7 @@ class Solution:
 
         for i in range(len(sorted_counter_list)): # Sort unique values from counter
             num = sorted_counter_list[i]
+
             if num not in counter:            # already consumed by earlier steps
                 continue
 
@@ -25,7 +26,7 @@ class Solution:
                     return False
 
                 counter[k] -= count
-                
+
                 if counter[k] == 0:
                     del counter[k]
         return True
