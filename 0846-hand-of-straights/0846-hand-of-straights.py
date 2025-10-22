@@ -5,14 +5,19 @@ class Solution:
 
         counter = Counter(hand)
         hand.sort()
+        # total = []
 
         for i in range(len(hand)):
             num = hand[i]
             if counter[num] != 0:
+                # result = []
                 for j in range(num, num + groupSize):
                     counter[j] -= 1
+                    # result.append(j)
                     if counter[j] < 0:
                         return False
+                # total.append(result)
+        # print(total)
         return True
 
         # Time Complexity is O(n*logn + n * k) n is the number of numbers in the hand, and k is the groupSize
